@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: 009-test-admin
+      author: geradine
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: admin
+              - column:
+                  name: email
+                  value: admin@example.com
+              - column:
+                  name: password
+                  # PASSWORD: admin123 (bcrypt)
+                  value: "$2a$12$toYp85V0iXFMzdVx4U/bc.sdX0CvDBDomURUFpiKMYhUvRd.12Ohu"
+              - column:
+                  name: role
+                  value: ADMIN
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  valueComputed: CURRENT_TIMESTAMP
+
+      rollback:
+        - delete:
+            tableName: users
+            where: username = 'admin'

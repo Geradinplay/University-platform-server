@@ -1,0 +1,46 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20240520-2-updated
+      author: geradine
+      changes:
+        - createTable:
+            tableName: breaks
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              # Заменили duration на два поля времени
+              - column:
+                  name: start_time
+                  type: TIME
+                  constraints:
+                    nullable: false
+              - column:
+                  name: end_time
+                  type: TIME
+                  constraints:
+                    nullable: false
+              - column:
+                  name: day
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+              # Добавляем связь с уроком
+              - column:
+                  name: lesson_id
+                  type: BIGINT
+                  constraints:
+                    unique: true # Важно для OneToOne
+
+        # Внешний ключ на таблицу lessons
+        - addForeignKeyConstraint:
+            baseTableName: breaks
+            baseColumnNames: lesson_id
+            constraintName: fk_breaks_lesson
+            referencedTableName: lessons
+            referencedColumnNames: id
+            onDelete: CASCADE # При удалении урока перерыв удалится автоматически

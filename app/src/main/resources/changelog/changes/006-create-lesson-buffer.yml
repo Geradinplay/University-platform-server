@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260207-6
+      author: geradine
+      changes:
+        - createTable:
+            tableName: lesson_buffer
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: info
+                  type: TEXT
+              - column:
+                  name: professor_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: fk_buffer_professor
+                    referencedTableName: professors
+                    referencedColumnNames: id

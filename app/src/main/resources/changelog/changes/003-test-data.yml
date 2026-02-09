@@ -1,0 +1,64 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260207-test-data-updated
+      author: geradine
+      context: test
+      changes:
+        # 1. ПРЕДМЕТЫ
+        - insert:
+            tableName: subjects
+            columns:
+              - column: { name: name, value: "Физика" }
+        - insert:
+            tableName: subjects
+            columns:
+              - column: { name: name, value: "Математика" }
+
+        # 2. ПРОФЕССОРЫ
+        - insert:
+            tableName: professors
+            columns:
+              - column: { name: name, value: "Исаак Ньютон" }
+        - insert:
+            tableName: professors
+            columns:
+              - column: { name: name, value: "Карл Гаусс" }
+
+        # 3. КАБИНЕТЫ
+        - insert:
+            tableName: classrooms
+            columns:
+              - column: { name: number, value: "302" }
+        - insert:
+            tableName: classrooms
+            columns:
+              - column: { name: number, value: "101" }
+
+        # 4. ЗАНЯТИЯ (Lessons)
+        - insert:
+            tableName: lessons
+            columns:
+              - column: { name: subject_id, valueNumeric: 1 }
+              - column: { name: start_time, value: "09:00:00" }
+              - column: { name: end_time, value: "10:30:00" }
+              - column: { name: day, value: 1 }
+              - column: { name: professor_id, valueNumeric: 1 }
+              - column: { name: classroom_id, valueNumeric: 1 }
+        - insert:
+            tableName: lessons
+            columns:
+              - column: { name: subject_id, valueNumeric: 2 }
+              - column: { name: start_time, value: "10:45:00" }
+              - column: { name: end_time, value: "12:15:00" }
+              - column: { name: day, value: 1 }
+              - column: { name: professor_id, valueNumeric: 2 }
+              - column: { name: classroom_id, valueNumeric: 2 }
+
+        # 5. ПЕРЕМЕНЫ (Breaks)
+        - insert:
+            tableName: breaks
+            columns:
+              - column: { name: start_time, value: "10:30:00" }
+              - column: { name: end_time, value: "10:45:00" }
+              - column: { name: day, value: 1 }
+              - column: { name: lesson_id, valueNumeric: 1 }

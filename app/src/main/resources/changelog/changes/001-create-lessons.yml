@@ -1,0 +1,62 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260207-8-buffer-integrated-v2
+      author: geradine
+      changes:
+        - createTable:
+            tableName: lessons
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: subject_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: professor_id
+                  type: BIGINT
+              - column:
+                  name: classroom_id
+                  type: BIGINT
+
+              # Заменили текстовое поле time на два поля типа TIME
+              - column:
+                  name: start_time
+                  type: TIME
+              - column:
+                  name: end_time
+                  type: TIME
+
+              - column:
+                  name: day
+                  type: INTEGER
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
+
+
+        # Добавление внешних ключей (лучшая практика Liquibase)
+        - addForeignKeyConstraint:
+            baseTableName: lessons
+            baseColumnNames: subject_id
+            constraintName: fk_lessons_subject
+            referencedTableName: subjects
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: lessons
+            baseColumnNames: professor_id
+            constraintName: fk_lessons_professor
+            referencedTableName: professors
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: lessons
+            baseColumnNames: classroom_id
+            constraintName: fk_lessons_classroom
+            referencedTableName: classrooms
+            referencedColumnNames: id

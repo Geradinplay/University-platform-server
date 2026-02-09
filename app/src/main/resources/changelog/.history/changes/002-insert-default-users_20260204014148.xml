@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-insert-default-users
+      author: dmitrii
+
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 1
+              - column:
+                  name: email
+                  value: user@user.com
+              - column:
+                  name: username
+                  value: user
+
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 2
+              - column:
+                  name: email
+                  value: admin@admin.com
+              - column:
+                  name: username
+                  value: admin

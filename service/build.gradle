@@ -1,0 +1,43 @@
+plugins {
+    id 'java'
+    id 'io.spring.dependency-management'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:3.2.5"
+    }
+}
+
+dependencies {
+    implementation project(':repository')
+    implementation project(':infrastructure')
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+// Добавьте эту зависимость:
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // Базовый стартер можно оставить, но JPA стартер уже включает его в себя
+    implementation 'org.springframework.boot:spring-boot-starter'
+
+    // Для ResponseStatusException, контроллеров и валидации
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+//   Для работы с jwt
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5' // Для работы с JSON
+}
+

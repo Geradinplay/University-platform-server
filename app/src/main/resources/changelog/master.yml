@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - include:
+      file: changelog/changes/007-create-subjects.yml   # 1. Сначала предметы
+  - include:
+      file: changelog/changes/005-create-classrooms.yml # 2. Потом кабинеты
+  - include:
+      file: changelog/changes/004-create-professors.yml # 3. Потом профессора
+  - include:
+      file: changelog/changes/001-create-lessons.yml    # 4. И только теперь уроки (со всеми связями)
+  - include:
+      file: changelog/changes/002-create-breaks.yml
+  - include:
+      file: changelog/changes/003-test-data.yml
+  - include:
+      file: changelog/changes/008-create-users.yml
+  - include:
+      file: changelog/changes/009-test-admin.yml
+
+

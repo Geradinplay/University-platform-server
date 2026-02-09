@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260207-5
+      author: geradine
+      changes:
+        - createTable:
+            tableName: classrooms
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: number
+                  type: TEXT
+                  constraints:
+                    nullable: false
+                    unique: true
