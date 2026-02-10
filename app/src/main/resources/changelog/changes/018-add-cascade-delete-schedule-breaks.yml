@@ -1,0 +1,20 @@
+databaseChangeLog:
+  # Добавляем каскадное удаление для внешнего ключа между breaks и schedules
+  # Если удаляется расписание, то удаляются все его перерывы
+  - changeSet:
+      id: 20260210-2-cascade-delete-schedule-breaks
+      author: geradine
+      changes:
+        # Сначала удаляем старое ограничение внешнего ключа
+        - dropForeignKeyConstraint:
+            baseTableName: breaks
+            constraintName: fk_breaks_schedule
+        # Затем добавляем новое с каскадным удалением
+        - addForeignKeyConstraint:
+            baseTableName: breaks
+            baseColumnNames: schedule_id
+            constraintName: fk_breaks_schedule
+            referencedTableName: schedules
+            referencedColumnNames: id
+            onDelete: CASCADE
+

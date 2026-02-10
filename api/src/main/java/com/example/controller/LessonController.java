@@ -12,30 +12,36 @@ import java.util.List;
 @RequestMapping("/api/schedule")
 public class LessonController {
 
-    private final LessonService scheduleService;
+    private final LessonService lessonService;
 
-    public LessonController(LessonService scheduleService) {
-        this.scheduleService = scheduleService;
+    public LessonController(LessonService lessonService) {
+        this.lessonService = lessonService;
     }
 
     @PostMapping
     public ResponseEntity<LessonDTO> create(@Validated(LessonDTO.CreateGroup.class) @RequestBody LessonDTO dto) {
-        return ResponseEntity.ok(scheduleService.createLesson(dto));
+        return ResponseEntity.ok(lessonService.createLesson(dto));
     }
 
     @GetMapping
-    public ResponseEntity<List<LessonDTO>> getSchedule() {
-        return ResponseEntity.ok(scheduleService.getSchedule());
+    public ResponseEntity<List<LessonDTO>> getLessons() {
+        return ResponseEntity.ok(lessonService.getLessons());
+    }
+
+    @GetMapping("/schedule/{scheduleId}/lessons")
+    public ResponseEntity<List<LessonDTO>> getLessonsBySchedule(@PathVariable Long scheduleId) {
+        return ResponseEntity.ok(lessonService.getLessonsByScheduleId(scheduleId));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<LessonDTO> update(@PathVariable Long id, @Validated(LessonDTO.UpdateGroup.class) @RequestBody LessonDTO dto) {
-        return ResponseEntity.ok(scheduleService.updateLesson(id, dto));
+        return ResponseEntity.ok(lessonService.updateLesson(id, dto));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        scheduleService.deleteLesson(id);
+        lessonService.deleteLesson(id);
         return ResponseEntity.noContent().build();
     }
 }
+

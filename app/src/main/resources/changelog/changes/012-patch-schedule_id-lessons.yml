@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260209-2-lessons
+      author: geradine
+      changes:
+        - addColumn:
+            tableName: lessons
+            columns:
+              - column:
+                  name: schedule_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: lessons
+            baseColumnNames: schedule_id
+            constraintName: fk_lessons_schedule
+            referencedTableName: schedules
+            referencedColumnNames: id

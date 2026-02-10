@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260209-4-buffer
+      author: geradine
+      changes:
+        - addColumn:
+            tableName: lesson_buffer
+            columns:
+              - column:
+                  name: schedule_id
+                  type: BIGINT
+        - addForeignKeyConstraint:
+            baseTableName: lesson_buffer
+            baseColumnNames: schedule_id
+            constraintName: fk_buffer_schedule
+            referencedTableName: schedules
+            referencedColumnNames: id

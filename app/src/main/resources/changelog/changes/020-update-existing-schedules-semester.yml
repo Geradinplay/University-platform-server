@@ -1,0 +1,15 @@
+databaseChangeLog:
+  # Обновляем старое расписание из 003-test-data.yml - добавляем семестр
+  - changeSet:
+      id: 20260210-4-update-existing-schedules-semester
+      author: geradine
+      context: test
+      changes:
+        - update:
+            tableName: schedules
+            columns:
+              - column:
+                  name: semester
+                  value: 1
+            where: name = 'Осенний семестр 2026'
+

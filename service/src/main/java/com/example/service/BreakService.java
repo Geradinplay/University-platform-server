@@ -3,8 +3,12 @@ package com.example.service;
 import com.example.dto.BreakDTO;
 import com.example.entity.Break;
 import com.example.entity.Lesson;
+import com.example.entity.Schedule;
+import com.example.exception.NotFoundException;
 import com.example.mapper.BreakMapper;
 import com.example.repository.BreakRepo;
+import com.example.repository.LessonRepo;
+import com.example.repository.ScheduleRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,23 +21,21 @@ public class BreakService {
 
     private final BreakRepo breakRepo;
     private final BreakMapper breakMapper;
+    private final ScheduleRepo scheduleRepo;
+    private final LessonRepo lessonRepo;
 
     @Transactional
     public Break createBreakForLesson(Lesson lesson, BreakDTO breakDto) {
-        if (breakDto == null) return null;
-
-        // Валидация: время конца не может быть раньше начала
-        if (breakDto.getEndTime().isBefore(breakDto.getStartTime())) {
-            throw new IllegalArgumentException("Время окончания перерыва не может быть раньше времени начала");
+        Break b = new Break();
+        b.setLesson(lesson);
+        b.setStartTime(breakDto.getStartTime());
+        b.setEndTime(breakDto.getEndTime());
+        b.setDay(lesson.getDay());
+        if (breakDto.getScheduleId() != null) {
+            b.setSchedule(scheduleRepo.findById(breakDto.getScheduleId())
+                    .orElseThrow(() -> new NotFoundException("Schedule not found with id: " + breakDto.getScheduleId())));
         }
-
-        Break breakEntity = new Break();
-        breakEntity.setStartTime(breakDto.getStartTime());
-        breakEntity.setEndTime(breakDto.getEndTime());
-        breakEntity.setDay(lesson.getDay()); // Логично брать день из урока
-        breakEntity.setLesson(lesson);
-
-        return breakRepo.save(breakEntity);
+        return breakRepo.save(b);
     }
 
     @Transactional
@@ -43,52 +45,55 @@ public class BreakService {
         b.setStartTime(startTime);
         b.setEndTime(endTime);
         b.setDay(lesson.getDay());
-
         breakRepo.save(b);
     }
 
     @Transactional
     public BreakDTO saveBreak(BreakDTO dto) {
-        // Маппим DTO в сущность
         Break entity = breakMapper.toEntity(dto);
-
-        // Если перерыв должен быть привязан к уроку,
-        // здесь нужно найти урок в репо и сделать setLesson()
-
+        if (dto.getScheduleId() != null) {
+            entity.setSchedule(scheduleRepo.findById(dto.getScheduleId())
+                    .orElseThrow(() -> new NotFoundException("Schedule not found with id: " + dto.getScheduleId())));
+        }
         Break saved = breakRepo.save(entity);
         return breakMapper.toDto(saved);
     }
 
     @Transactional(readOnly = true)
     public List<BreakDTO> getAllBreaks() {
-        return breakRepo.findAll().stream()
+        return breakRepo.findAll().stream().map(breakMapper::toDto).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<BreakDTO> getBreaksByScheduleId(Long scheduleId) {
+        // Проверяем существование расписания
+        if (!scheduleRepo.existsById(scheduleId)) {
+            throw new NotFoundException("Schedule not found with id: " + scheduleId);
+        }
+        return breakRepo.findByScheduleId(scheduleId)
+                .stream()
                 .map(breakMapper::toDto)
                 .toList();
     }
 
     @Transactional
     public BreakDTO updateBreak(Long id, BreakDTO dto) {
-        Break breakEntity = breakRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Break not found"));
-
-        // Валидация: время конца не может быть раньше начала
-        if (dto.getEndTime().isBefore(dto.getStartTime())) {
-            throw new IllegalArgumentException("Время окончания перерыва не может быть раньше времени начала");
+        Break b = breakRepo.findById(id).orElseThrow(() -> new NotFoundException("Break not found: " + id));
+        b.setStartTime(dto.getStartTime());
+        b.setEndTime(dto.getEndTime());
+        b.setDay(dto.getDay());
+        if (dto.getScheduleId() != null) {
+            b.setSchedule(scheduleRepo.findById(dto.getScheduleId())
+                    .orElseThrow(() -> new NotFoundException("Schedule not found with id: " + dto.getScheduleId())));
         }
-
-        // Обновляем поля
-        breakEntity.setStartTime(dto.getStartTime());
-        breakEntity.setEndTime(dto.getEndTime());
-        breakEntity.setDay(dto.getDay());
-
-        Break updated = breakRepo.save(breakEntity);
-        return breakMapper.toDto(updated);
+        Break saved = breakRepo.save(b);
+        return breakMapper.toDto(saved);
     }
 
     @Transactional
     public void deleteBreak(Long id) {
         if (!breakRepo.existsById(id)) {
-            throw new RuntimeException("Break not found");
+            throw new NotFoundException("Break not found with id: " + id);
         }
         breakRepo.deleteById(id);
     }

@@ -1,19 +1,45 @@
 databaseChangeLog:
   - include:
+      file: changelog/changes/011-create-faculties.yml
+  - include:
+      file: changelog/changes/010-create-schedules.yml
+  - include:
       file: changelog/changes/007-create-subjects.yml   # 1. Сначала предметы
   - include:
       file: changelog/changes/005-create-classrooms.yml # 2. Потом кабинеты
   - include:
       file: changelog/changes/004-create-professors.yml # 3. Потом профессора
   - include:
-      file: changelog/changes/001-create-lessons.yml    # 4. И только теперь уроки (со всеми связями)
+      file: changelog/changes/001-create-lessons.yml    # 4. Уроки
   - include:
-      file: changelog/changes/002-create-breaks.yml
+      file: changelog/changes/002-create-breaks.yml     # 5. Перерывы (до патчей)
+  - include:
+      file: changelog/changes/006-create-lesson-buffer.yml # 6. Буфер (до патчей)
+  # Патчи schedule_id
+  - include:
+      file: changelog/changes/012-patch-schedule_id-lessons.yml
+  - include:
+      file: changelog/changes/013-patch-schedule_id-breaks.yml
+  - include:
+      file: changelog/changes/014-path-schedule_id-lesson_buffer.yml
+  # Патчи для добавления новых полей И каскадного удаления
+  - include:
+      file: changelog/changes/019-add-semester-to-schedules.yml
+  - include:
+      file: changelog/changes/016-add-cascade-delete-faculties.yml
+  - include:
+      file: changelog/changes/017-add-cascade-delete-schedule-lessons.yml
+  - include:
+      file: changelog/changes/018-add-cascade-delete-schedule-breaks.yml
+  # Демоданные и пользователи
   - include:
       file: changelog/changes/003-test-data.yml
   - include:
       file: changelog/changes/008-create-users.yml
   - include:
       file: changelog/changes/009-test-admin.yml
-
+  - include:
+      file: changelog/changes/015-test-data-faculties-schedules.yml
+  - include:
+      file: changelog/changes/020-update-existing-schedules-semester.yml
 

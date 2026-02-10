@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260209-3-breaks
+      author: geradine
+      changes:
+        - addColumn:
+            tableName: breaks
+            columns:
+              - column:
+                  name: schedule_id
+                  type: BIGINT
+        - addForeignKeyConstraint:
+            baseTableName: breaks
+            baseColumnNames: schedule_id
+            constraintName: fk_breaks_schedule
+            referencedTableName: schedules
+            referencedColumnNames: id

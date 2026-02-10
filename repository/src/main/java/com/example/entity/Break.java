@@ -29,4 +29,9 @@ public class Break implements Schedulable{
     @OneToOne
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;
+
+    // Новая связь с расписанием
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "schedule_id")
+    private Schedule schedule;
 }

@@ -1,61 +1,51 @@
 package com.example.exception;
 
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import java.util.stream.Collectors;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    // Ловим ошибки уникальности (UserAlreadyExistsException) -> 400 Bad Request
-    @ExceptionHandler(UserAlreadyExistsException.class)
-    public ResponseEntity<String> handleUserExists(UserAlreadyExistsException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleNotFound(NotFoundException ex) {
+        return build(HttpStatus.NOT_FOUND, ex.getMessage());
     }
 
-    // Ловим нарушения целостности данных (race condition при одновременной регистрации) -> 400 Bad Request
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<String> handleDataIntegrityViolation(DataIntegrityViolationException ex) {
-        String message = ex.getMessage();
-        if (message != null && message.toLowerCase().contains("username")) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Username is already taken");
-        } else if (message != null && message.toLowerCase().contains("email")) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Email is already in use");
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body("This user data already exists");
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<Map<String, Object>> handleBadRequest(BadRequestException ex) {
+        return build(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
-    // Ловим ошибки валидации (неверные данные в Request Body) -> 400 Bad Request
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<String> handleValidationException(MethodArgumentNotValidException ex) {
-        String errors = ex.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .map(error -> error.getField() + ": " + error.getDefaultMessage())
-                .collect(Collectors.joining("; "));
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Validation error: " + errors);
+    public ResponseEntity<Map<String, Object>> handleValidation(MethodArgumentNotValidException ex) {
+        String msg = ex.getBindingResult().getFieldErrors().stream()
+                .map(f -> f.getField() + ": " + f.getDefaultMessage())
+                .findFirst()
+                .orElse("Validation error");
+        return build(HttpStatus.BAD_REQUEST, msg);
     }
 
-    // Ловим ошибки входа (AuthException) -> 401 Unauthorized
-    @ExceptionHandler(AuthException.class)
-    public ResponseEntity<String> handleAuthError(AuthException ex) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
+    @ExceptionHandler(ApiException.class)
+    public ResponseEntity<Map<String, Object>> handleApi(ApiException ex) {
+        return build(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
-    // Ловим вообще всё остальное, чтобы не упасть с 500
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleGlobal(Exception ex) {
-        // В продакшене лучше не логировать ex.getMessage() напрямую клиенту для 500-х ошибок
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("An unexpected error occurred on the server");
+    public ResponseEntity<Map<String, Object>> handleOther(Exception ex) {
+        return build(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error");
     }
 
+    private ResponseEntity<Map<String, Object>> build(HttpStatus status, String message) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("status", status.value());
+        body.put("error", status.getReasonPhrase());
+        body.put("message", message);
+        return ResponseEntity.status(status).body(body);
+    }
 }
-

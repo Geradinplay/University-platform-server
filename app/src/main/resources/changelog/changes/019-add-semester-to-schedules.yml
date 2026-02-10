@@ -1,0 +1,16 @@
+databaseChangeLog:
+  # Добавляем поле семестра к таблице расписаний
+  - changeSet:
+      id: 20260210-3-add-semester-to-schedules
+      author: geradine
+      changes:
+        - addColumn:
+            tableName: schedules
+            columns:
+              - column:
+                  name: semester
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: 1
+

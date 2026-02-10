@@ -20,4 +20,9 @@ public interface LessonRepo extends JpaRepository<Lesson, Long> {
      */
     boolean existsByDayAndStartTimeAndEndTime(Integer day, LocalTime startTime, LocalTime endTime);
 
+    /**
+     * Получить все занятия конкретного расписания
+     */
+    List<Lesson> findByScheduleId(Long scheduleId);
+
 }

@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260209-1
+      author: geradine
+      changes:
+        - createTable:
+            tableName: schedules
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: faculty_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: schedules
+            baseColumnNames: faculty_id
+            constraintName: fk_schedule_faculty
+            referencedTableName: faculties
+            referencedColumnNames: id

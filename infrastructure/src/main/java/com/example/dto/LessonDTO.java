@@ -2,8 +2,9 @@ package com.example.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 import jakarta.validation.constraints.*;
+import lombok.Data;
+
 import java.time.LocalTime;
 
 @Data
@@ -45,4 +46,8 @@ public class LessonDTO {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull(groups = CreateGroup.class)
     private Long classroomId;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @NotNull(groups = CreateGroup.class)
+    private Long scheduleId;
 }

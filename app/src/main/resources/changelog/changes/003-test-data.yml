@@ -1,10 +1,24 @@
 databaseChangeLog:
   - changeSet:
-      id: 20260207-test-data-updated
+      id: 20260209-test-data-updated-v2
       author: geradine
       context: test
       changes:
-        # 1. ПРЕДМЕТЫ
+        # 1. ФАКУЛЬТЕТ (Основа)
+        - insert:
+            tableName: faculties
+            columns:
+              - column: { name: name, value: "Физико-математический факультет" }
+              - column: { name: short_name, value: "ФМФ" }
+
+        # 2. РАСПИСАНИЕ (Контейнер)
+        - insert:
+            tableName: schedules
+            columns:
+              - column: { name: name, value: "Осенний семестр 2026" }
+              - column: { name: faculty_id, valueNumeric: 1 }
+
+        # 3. ПРЕДМЕТЫ, ПРОФЕССОРЫ, КАБИНЕТЫ (Справочники)
         - insert:
             tableName: subjects
             columns:
@@ -13,8 +27,6 @@ databaseChangeLog:
             tableName: subjects
             columns:
               - column: { name: name, value: "Математика" }
-
-        # 2. ПРОФЕССОРЫ
         - insert:
             tableName: professors
             columns:
@@ -23,8 +35,6 @@ databaseChangeLog:
             tableName: professors
             columns:
               - column: { name: name, value: "Карл Гаусс" }
-
-        # 3. КАБИНЕТЫ
         - insert:
             tableName: classrooms
             columns:
@@ -34,11 +44,12 @@ databaseChangeLog:
             columns:
               - column: { name: number, value: "101" }
 
-        # 4. ЗАНЯТИЯ (Lessons)
+        # 4. ЗАНЯТИЯ (Добавили schedule_id)
         - insert:
             tableName: lessons
             columns:
               - column: { name: subject_id, valueNumeric: 1 }
+              - column: { name: schedule_id, valueNumeric: 1 } # Ссылка на расписание
               - column: { name: start_time, value: "09:00:00" }
               - column: { name: end_time, value: "10:30:00" }
               - column: { name: day, value: 1 }
@@ -48,16 +59,18 @@ databaseChangeLog:
             tableName: lessons
             columns:
               - column: { name: subject_id, valueNumeric: 2 }
+              - column: { name: schedule_id, valueNumeric: 1 } # Ссылка на расписание
               - column: { name: start_time, value: "10:45:00" }
               - column: { name: end_time, value: "12:15:00" }
               - column: { name: day, value: 1 }
               - column: { name: professor_id, valueNumeric: 2 }
               - column: { name: classroom_id, valueNumeric: 2 }
 
-        # 5. ПЕРЕМЕНЫ (Breaks)
+        # 5. ПЕРЕМЕНЫ (Добавили schedule_id)
         - insert:
             tableName: breaks
             columns:
+              - column: { name: schedule_id, valueNumeric: 1 } # Ссылка на расписание
               - column: { name: start_time, value: "10:30:00" }
               - column: { name: end_time, value: "10:45:00" }
               - column: { name: day, value: 1 }

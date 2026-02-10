@@ -1,0 +1,217 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260210-test-data-faculties-schedules
+      author: geradine
+      context: test
+      changes:
+        # ============================================================
+        # 1. ДОБАВЛЯЕМ 3 НОВЫХ ФАКУЛЬТЕТА
+        # ============================================================
+        - insert:
+            tableName: faculties
+            columns:
+              - column: { name: name, value: "Факультет Информационных Технологий" }
+              - column: { name: short_name, value: "ФИТ" }
+
+        - insert:
+            tableName: faculties
+            columns:
+              - column: { name: name, value: "Факультет Прикладной Математики" }
+              - column: { name: short_name, value: "ФПМ" }
+
+        - insert:
+            tableName: faculties
+            columns:
+              - column: { name: name, value: "Факультет Экономики" }
+              - column: { name: short_name, value: "ЭК" }
+
+        # ============================================================
+        # 2. ДОБАВЛЯЕМ НОВЫЕ ПРЕДМЕТЫ  (Физика и Математика уже есть в 003)
+        # ============================================================
+        - insert:
+            tableName: subjects
+            columns:
+              - column: { name: name, value: "Алгебра" }
+        - insert:
+            tableName: subjects
+            columns:
+              - column: { name: name, value: "Программирование" }
+        - insert:
+            tableName: subjects
+            columns:
+              - column: { name: name, value: "Экономика" }
+        - insert:
+            tableName: subjects
+            columns:
+              - column: { name: name, value: "Статистика" }
+
+        # ============================================================
+        # 3. ДОБАВЛЯЕМ НОВЫХ ПРОФЕССОРОВ (Ньютон и Гаусс уже есть в 003)
+        # ============================================================
+        - insert:
+            tableName: professors
+            columns:
+              - column: { name: name, value: "Дональд Кнут" }
+        - insert:
+            tableName: professors
+            columns:
+              - column: { name: name, value: "Ада Лавлейс" }
+
+        # ============================================================
+        # 4. ДОБАВЛЯЕМ НОВЫЕ АУДИТОРИИ (302 и 101 уже есть в 003)
+        # ============================================================
+        - insert:
+            tableName: classrooms
+            columns:
+              - column: { name: number, value: "401" }
+        - insert:
+            tableName: classrooms
+            columns:
+              - column: { name: number, value: "402" }
+        - insert:
+            tableName: classrooms
+            columns:
+              - column: { name: number, value: "501" }
+        - insert:
+            tableName: classrooms
+            columns:
+              - column: { name: number, value: "502" }
+
+        # ============================================================
+        # 5. ДОБАВЛЯЕМ РАСПИСАНИЯ ДЛЯ ФАКУЛЬТЕТОВ
+        # ============================================================
+        - insert:
+            tableName: schedules
+            columns:
+              - column: { name: name, value: "ФИТ 1 курс - Осень 2026" }
+              - column: { name: faculty_id, valueComputed: "(SELECT id FROM faculties WHERE short_name = 'ФИТ')" }
+              - column: { name: semester, value: 1 }
+
+        - insert:
+            tableName: schedules
+            columns:
+              - column: { name: name, value: "ФПМ 2 курс - Осень 2026" }
+              - column: { name: faculty_id, valueComputed: "(SELECT id FROM faculties WHERE short_name = 'ФПМ')" }
+              - column: { name: semester, value: 2 }
+
+        - insert:
+            tableName: schedules
+            columns:
+              - column: { name: name, value: "ЭК 3 курс - Осень 2026" }
+              - column: { name: faculty_id, valueComputed: "(SELECT id FROM faculties WHERE short_name = 'ЭК')" }
+              - column: { name: semester, value: 3 }
+
+        # ============================================================
+        # 6. ЗАНЯТИЯ ДЛЯ ФИТ (используем Ньютон и Гаусс из 003, новые классы)
+        # ============================================================
+        # Понедельник
+        - insert:
+            tableName: lessons
+            columns:
+              - column: { name: subject_id, valueComputed: "(SELECT id FROM subjects WHERE name = 'Программирование')" }
+              - column: { name: schedule_id, valueComputed: "(SELECT id FROM schedules WHERE name = 'ФИТ 1 курс - Осень 2026')" }
+              - column: { name: start_time, value: "09:00:00" }
+              - column: { name: end_time, value: "10:30:00" }
+              - column: { name: day, value: 1 }
+              - column: { name: professor_id, valueComputed: "(SELECT id FROM professors WHERE name = 'Исаак Ньютон')" }
+              - column: { name: classroom_id, valueComputed: "(SELECT id FROM classrooms WHERE number = '401')" }
+
+        - insert:
+            tableName: lessons
+            columns:
+              - column: { name: subject_id, valueComputed: "(SELECT id FROM subjects WHERE name = 'Алгебра')" }
+              - column: { name: schedule_id, valueComputed: "(SELECT id FROM schedules WHERE name = 'ФИТ 1 курс - Осень 2026')" }
+              - column: { name: start_time, value: "10:45:00" }
+              - column: { name: end_time, value: "12:15:00" }
+              - column: { name: day, value: 1 }
+              - column: { name: professor_id, valueComputed: "(SELECT id FROM professors WHERE name = 'Карл Гаусс')" }
+              - column: { name: classroom_id, valueComputed: "(SELECT id FROM classrooms WHERE number = '402')" }
+
+        # Вторник
+        - insert:
+            tableName: lessons
+            columns:
+              - column: { name: subject_id, valueComputed: "(SELECT id FROM subjects WHERE name = 'Программирование')" }
+              - column: { name: schedule_id, valueComputed: "(SELECT id FROM schedules WHERE name = 'ФИТ 1 курс - Осень 2026')" }
+              - column: { name: start_time, value: "14:00:00" }
+              - column: { name: end_time, value: "15:30:00" }
+              - column: { name: day, value: 2 }
+              - column: { name: professor_id, valueComputed: "(SELECT id FROM professors WHERE name = 'Исаак Ньютон')" }
+              - column: { name: classroom_id, valueComputed: "(SELECT id FROM classrooms WHERE number = '401')" }
+
+        # ============================================================
+        # 7. ЗАНЯТИЯ ДЛЯ ФПМ (используем Ньютон и Гаусс, новые предметы и классы)
+        # ============================================================
+        # Понедельник
+        - insert:
+            tableName: lessons
+            columns:
+              - column: { name: subject_id, valueComputed: "(SELECT id FROM subjects WHERE name = 'Алгебра')" }
+              - column: { name: schedule_id, valueComputed: "(SELECT id FROM schedules WHERE name = 'ФПМ 2 курс - Осень 2026')" }
+              - column: { name: start_time, value: "08:00:00" }
+              - column: { name: end_time, value: "09:30:00" }
+              - column: { name: day, value: 1 }
+              - column: { name: professor_id, valueComputed: "(SELECT id FROM professors WHERE name = 'Карл Гаусс')" }
+              - column: { name: classroom_id, valueComputed: "(SELECT id FROM classrooms WHERE number = '501')" }
+
+        - insert:
+            tableName: lessons
+            columns:
+              - column: { name: subject_id, valueComputed: "(SELECT id FROM subjects WHERE name = 'Программирование')" }
+              - column: { name: schedule_id, valueComputed: "(SELECT id FROM schedules WHERE name = 'ФПМ 2 курс - Осень 2026')" }
+              - column: { name: start_time, value: "09:45:00" }
+              - column: { name: end_time, value: "11:15:00" }
+              - column: { name: day, value: 1 }
+              - column: { name: professor_id, valueComputed: "(SELECT id FROM professors WHERE name = 'Исаак Ньютон')" }
+              - column: { name: classroom_id, valueComputed: "(SELECT id FROM classrooms WHERE number = '502')" }
+
+        # Среда
+        - insert:
+            tableName: lessons
+            columns:
+              - column: { name: subject_id, valueComputed: "(SELECT id FROM subjects WHERE name = 'Статистика')" }
+              - column: { name: schedule_id, valueComputed: "(SELECT id FROM schedules WHERE name = 'ФПМ 2 курс - Осень 2026')" }
+              - column: { name: start_time, value: "10:00:00" }
+              - column: { name: end_time, value: "11:30:00" }
+              - column: { name: day, value: 3 }
+              - column: { name: professor_id, valueComputed: "(SELECT id FROM professors WHERE name = 'Карл Гаусс')" }
+              - column: { name: classroom_id, valueComputed: "(SELECT id FROM classrooms WHERE number = '501')" }
+
+        # ============================================================
+        # 8. ЗАНЯТИЯ ДЛЯ ЭК (используем новых профессоров Кнут и Лавлейс)
+        # ============================================================
+        # Понедельник
+        - insert:
+            tableName: lessons
+            columns:
+              - column: { name: subject_id, valueComputed: "(SELECT id FROM subjects WHERE name = 'Экономика')" }
+              - column: { name: schedule_id, valueComputed: "(SELECT id FROM schedules WHERE name = 'ЭК 3 курс - Осень 2026')" }
+              - column: { name: start_time, value: "09:00:00" }
+              - column: { name: end_time, value: "10:30:00" }
+              - column: { name: day, value: 1 }
+              - column: { name: professor_id, valueComputed: "(SELECT id FROM professors WHERE name = 'Дональд Кнут')" }
+              - column: { name: classroom_id, valueComputed: "(SELECT id FROM classrooms WHERE number = '401')" }
+
+        - insert:
+            tableName: lessons
+            columns:
+              - column: { name: subject_id, valueComputed: "(SELECT id FROM subjects WHERE name = 'Статистика')" }
+              - column: { name: schedule_id, valueComputed: "(SELECT id FROM schedules WHERE name = 'ЭК 3 курс - Осень 2026')" }
+              - column: { name: start_time, value: "10:45:00" }
+              - column: { name: end_time, value: "12:15:00" }
+              - column: { name: day, value: 1 }
+              - column: { name: professor_id, valueComputed: "(SELECT id FROM professors WHERE name = 'Ада Лавлейс')" }
+              - column: { name: classroom_id, valueComputed: "(SELECT id FROM classrooms WHERE number = '402')" }
+
+        # Четверг
+        - insert:
+            tableName: lessons
+            columns:
+              - column: { name: subject_id, valueComputed: "(SELECT id FROM subjects WHERE name = 'Экономика')" }
+              - column: { name: schedule_id, valueComputed: "(SELECT id FROM schedules WHERE name = 'ЭК 3 курс - Осень 2026')" }
+              - column: { name: start_time, value: "13:30:00" }
+              - column: { name: end_time, value: "15:00:00" }
+              - column: { name: day, value: 4 }
+              - column: { name: professor_id, valueComputed: "(SELECT id FROM professors WHERE name = 'Дональд Кнут')" }
+              - column: { name: classroom_id, valueComputed: "(SELECT id FROM classrooms WHERE number = '501')" }
+

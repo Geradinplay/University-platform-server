@@ -1,0 +1,25 @@
+databaseChangeLog:
+  # 1. Создаем таблицу факультетов
+  - changeSet:
+      id: 20260209-0-faculties
+      author: geradine
+      changes:
+        - createTable:
+            tableName: faculties
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255) # Например: "Факультет информационных технологий"
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: short_name
+                  type: VARCHAR(20) # Например: "ФИТ"

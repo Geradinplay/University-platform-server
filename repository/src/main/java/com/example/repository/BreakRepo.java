@@ -10,4 +10,9 @@ import java.util.List;
 @Repository
 public interface BreakRepo extends JpaRepository<Break, Long> {
     List<Break> findByDay(Integer day);
+
+    /**
+     * Получить все перерывы конкретного расписания
+     */
+    List<Break> findByScheduleId(Long scheduleId);
 }

@@ -33,6 +33,11 @@ public class Lesson implements Schedulable{
     @JoinColumn(name = "classroom_id")
     private Classroom classroom;
 
+    // Новая связь с расписанием
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "schedule_id", nullable = false)
+    private Schedule schedule;
+
     // Геттеры и сеттеры для новых полей
     public LocalTime getStartTime() { return startTime; }
     public void setStartTime(LocalTime startTime) { this.startTime = startTime; }
@@ -51,4 +56,7 @@ public class Lesson implements Schedulable{
     public void setProfessor(Professor professor) { this.professor = professor; }
     public Classroom getClassroom() { return classroom; }
     public void setClassroom(Classroom classroom) { this.classroom = classroom; }
+
+    public Schedule getSchedule() { return schedule; }
+    public void setSchedule(Schedule schedule) { this.schedule = schedule; }
 }

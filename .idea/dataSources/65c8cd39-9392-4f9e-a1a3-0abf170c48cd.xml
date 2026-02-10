@@ -3,9 +3,17 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.53">
     <root id="1">
       <DateStyle>mdy</DateStyle>
-      <IntrospectionStateNumber>1846</IntrospectionStateNumber>
+      <Grants>1||-9223372036854775808|c|G
+1||10|c|G
+1||10|C|G
+1||10|T|G
+4||-9223372036854775808|c|G
+4||10|c|G
+4||10|C|G
+4||10|T|G</Grants>
+      <IntrospectionStateNumber>2558</IntrospectionStateNumber>
       <ServerVersion>16.11</ServerVersion>
-      <StartupTime>1770580563</StartupTime>
+      <StartupTime>1770719543</StartupTime>
       <TimeZones>true ACDT
 true ACSST
 false ACST
@@ -700,7 +708,7 @@ false posixrules
 13276||10|C|G
 13276||-9223372036854775808|U|G
 13276||10|U|G</Grants>
-      <IntrospectionStateNumber>1846</IntrospectionStateNumber>
+      <IntrospectionStateNumber>2558</IntrospectionStateNumber>
       <ObjectId>5</ObjectId>
       <OwnerName>admin</OwnerName>
     </database>
@@ -4119,59 +4127,83 @@ false posixrules
     <schema id="263" parent="2" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>1846</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2026-02-08.22:51:09</LastIntrospectionLocalTimestamp>
+      <IntrospectionStateNumber>2558</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2026-02-10.16:34:52</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>524</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
     </schema>
-    <table id="264" parent="263" name="databasechangeloglock">
-      <ObjectId>18006</ObjectId>
-      <StateNumber>1839</StateNumber>
-      <AccessMethodId>2</AccessMethodId>
+    <sequence id="264" parent="263" name="breaks_id_seq">
+      <ObjectId>25753</ObjectId>
+      <SequenceIdentity>1</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>1938</StateNumber>
+      <StoredType>bigint|0s</StoredType>
       <OwnerName>admin</OwnerName>
-    </table>
-    <column id="265" parent="264" name="id">
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-      <StateNumber>1839</StateNumber>
-      <StoredType>integer|0s</StoredType>
-      <TypeId>23</TypeId>
-    </column>
-    <column id="266" parent="264" name="locked">
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-      <StateNumber>1839</StateNumber>
-      <StoredType>boolean|0s</StoredType>
-      <TypeId>16</TypeId>
-    </column>
-    <column id="267" parent="264" name="lockgranted">
-      <Position>3</Position>
-      <StateNumber>1839</StateNumber>
-      <StoredType>timestamp|0s</StoredType>
-      <TypeId>1114</TypeId>
-    </column>
-    <column id="268" parent="264" name="lockedby">
-      <Position>4</Position>
-      <StateNumber>1839</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
-      <TypeId>1043</TypeId>
-    </column>
-    <index id="269" parent="264" name="databasechangeloglock_pkey">
-      <ColNames>id</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>18009</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>1839</StateNumber>
-      <Unique>1</Unique>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <key id="270" parent="264" name="databasechangeloglock_pkey">
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>18010</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>1839</StateNumber>
-      <UnderlyingIndexId>18009</UnderlyingIndexId>
-    </key>
+    </sequence>
+    <sequence id="265" parent="263" name="classrooms_id_seq">
+      <ObjectId>25707</ObjectId>
+      <SequenceIdentity>1</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>1926</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <OwnerName>admin</OwnerName>
+    </sequence>
+    <sequence id="266" parent="263" name="faculties_id_seq">
+      <ObjectId>25680</ObjectId>
+      <SequenceIdentity>1</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>1920</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <OwnerName>admin</OwnerName>
+    </sequence>
+    <sequence id="267" parent="263" name="lesson_buffer_id_seq">
+      <ObjectId>25771</ObjectId>
+      <SequenceIdentity>1</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>1946</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <OwnerName>admin</OwnerName>
+    </sequence>
+    <sequence id="268" parent="263" name="lessons_id_seq">
+      <ObjectId>25725</ObjectId>
+      <SequenceIdentity>1</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>1930</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <OwnerName>admin</OwnerName>
+    </sequence>
+    <sequence id="269" parent="263" name="professors_id_seq">
+      <ObjectId>25717</ObjectId>
+      <SequenceIdentity>1</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>1928</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <OwnerName>admin</OwnerName>
+    </sequence>
+    <sequence id="270" parent="263" name="schedules_id_seq">
+      <ObjectId>25688</ObjectId>
+      <SequenceIdentity>1</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>1922</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <OwnerName>admin</OwnerName>
+    </sequence>
+    <sequence id="271" parent="263" name="subjects_id_seq">
+      <ObjectId>25699</ObjectId>
+      <SequenceIdentity>1</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>1924</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <OwnerName>admin</OwnerName>
+    </sequence>
+    <sequence id="272" parent="263" name="users_id_seq">
+      <ObjectId>25789</ObjectId>
+      <SequenceIdentity>1</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>1952</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <OwnerName>admin</OwnerName>
+    </sequence>
   </database-model>
 </dataSource>

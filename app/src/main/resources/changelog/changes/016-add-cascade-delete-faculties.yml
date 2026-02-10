@@ -1,0 +1,20 @@
+databaseChangeLog:
+  # Добавляем каскадное удаление для внешнего ключа между schedules и faculties
+  # Если удаляется факультет, то удаляются все его расписания
+  - changeSet:
+      id: 20260210-0-cascade-delete-faculties
+      author: geradine
+      changes:
+        # Сначала удаляем старое ограничение внешнего ключа
+        - dropForeignKeyConstraint:
+            baseTableName: schedules
+            constraintName: fk_schedule_faculty
+        # Затем добавляем новое с каскадным удалением
+        - addForeignKeyConstraint:
+            baseTableName: schedules
+            baseColumnNames: faculty_id
+            constraintName: fk_schedule_faculty
+            referencedTableName: faculties
+            referencedColumnNames: id
+            onDelete: CASCADE
+

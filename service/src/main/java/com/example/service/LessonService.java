@@ -4,6 +4,7 @@ import com.example.dto.BreakDTO;
 import com.example.dto.LessonDTO;
 import com.example.entity.Break;
 import com.example.entity.Lesson;
+import com.example.exception.NotFoundException;
 import com.example.mapper.BreakMapper;
 import com.example.mapper.LessonMapper;
 import com.example.repository.*; // Импортируем все нужные репозитории
@@ -27,6 +28,7 @@ public class LessonService {
     private final SubjectRepo subjectRepo;
     private final ProfessorRepo professorRepo;
     private final ClassroomRepo classroomRepo;
+    private final ScheduleRepo scheduleRepo;
 
     private final LessonMapper lessonMapper;
     private final BreakMapper breakMapper;
@@ -39,13 +41,16 @@ public class LessonService {
         // 2. Устанавливаем связи вручную, так как маппер не лезет в БД
         // Мы используем ID из DTO, чтобы найти сущности
         lesson.setSubject(subjectRepo.findById(dto.getSubjectId())
-                .orElseThrow(() -> new RuntimeException("Subject not found with id: " + dto.getSubjectId())));
+                .orElseThrow(() -> new NotFoundException("Subject not found with id: " + dto.getSubjectId())));
 
         lesson.setProfessor(professorRepo.findById(dto.getProfessorId())
-                .orElseThrow(() -> new RuntimeException("Professor not found with id: " + dto.getProfessorId())));
+                .orElseThrow(() -> new NotFoundException("Professor not found with id: " + dto.getProfessorId())));
 
         lesson.setClassroom(classroomRepo.findById(dto.getClassroomId())
-                .orElseThrow(() -> new RuntimeException("Classroom not found with id: " + dto.getClassroomId())));
+                .orElseThrow(() -> new NotFoundException("Classroom not found with id: " + dto.getClassroomId())));
+
+        lesson.setSchedule(scheduleRepo.findById(dto.getScheduleId())
+                .orElseThrow(() -> new NotFoundException("Schedule not found with id: " + dto.getScheduleId())));
 
         // 3. Сохраняем готовую сущность
         Lesson saved = lessonRepo.save(lesson);
@@ -54,7 +59,7 @@ public class LessonService {
 
     // ================= READ =================
     @Transactional(readOnly = true)
-    public List<LessonDTO> getSchedule() {
+    public List<LessonDTO> getLessons() {
         return lessonRepo.findAll()
                 .stream()
                 .map(lessonMapper::toDTO)
@@ -63,33 +68,49 @@ public class LessonService {
 
     // ================= UPDATE =================
     public LessonDTO updateLesson(Long id, LessonDTO dto) {
-        Lesson existingLesson = lessonRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Lesson not found with id: " + id));
+        Lesson lesson = lessonRepo.findById(id)
+                .orElseThrow(() -> new NotFoundException("Lesson not found: " + id));
 
         // Обновляем базовые поля
-        existingLesson.setStartTime(dto.getStartTime());
-        existingLesson.setEndTime(dto.getEndTime());
-        existingLesson.setDay(dto.getDay());
+        lesson.setStartTime(dto.getStartTime());
+        lesson.setEndTime(dto.getEndTime());
+        lesson.setDay(dto.getDay());
 
         // Обновляем связи, если в DTO пришли новые ID
         if (dto.getSubjectId() != null) {
-            existingLesson.setSubject(subjectRepo.findById(dto.getSubjectId())
-                    .orElseThrow(() -> new RuntimeException("Subject not found")));
+            lesson.setSubject(subjectRepo.findById(dto.getSubjectId())
+                    .orElseThrow(() -> new NotFoundException("Subject not found with id: " + dto.getSubjectId())));
         }
         if (dto.getProfessorId() != null) {
-            existingLesson.setProfessor(professorRepo.findById(dto.getProfessorId())
-                    .orElseThrow(() -> new RuntimeException("Professor not found")));
+            lesson.setProfessor(professorRepo.findById(dto.getProfessorId())
+                    .orElseThrow(() -> new NotFoundException("Professor not found with id: " + dto.getProfessorId())));
         }
         if (dto.getClassroomId() != null) {
-            existingLesson.setClassroom(classroomRepo.findById(dto.getClassroomId())
-                    .orElseThrow(() -> new RuntimeException("Classroom not found")));
+            lesson.setClassroom(classroomRepo.findById(dto.getClassroomId())
+                    .orElseThrow(() -> new NotFoundException("Classroom not found with id: " + dto.getClassroomId())));
+        }
+        if (dto.getScheduleId() != null) {
+            lesson.setSchedule(scheduleRepo.findById(dto.getScheduleId())
+                    .orElseThrow(() -> new NotFoundException("Schedule not found with id: " + dto.getScheduleId())));
         }
 
-        Lesson updated = lessonRepo.save(existingLesson);
-        return lessonMapper.toDTO(updated);
+        Lesson saved = lessonRepo.save(lesson);
+        return lessonMapper.toDTO(saved);
     }
 
     // ================= MIXED SCHEDULE =================
+    @Transactional(readOnly = true)
+    public List<LessonDTO> getLessonsByScheduleId(Long scheduleId) {
+        // Проверяем существование расписания
+        if (!scheduleRepo.existsById(scheduleId)) {
+            throw new NotFoundException("Schedule not found with id: " + scheduleId);
+        }
+        return lessonRepo.findByScheduleId(scheduleId)
+                .stream()
+                .map(lessonMapper::toDTO)
+                .toList();
+    }
+
     @Transactional(readOnly = true)
     public List<Object> getFullSchedule(Integer day) {
         List<Lesson> lessons = lessonRepo.findByDay(day);
@@ -112,7 +133,7 @@ public class LessonService {
     // ================= DELETE =================
     public void deleteLesson(Long id) {
         if (!lessonRepo.existsById(id)) {
-            throw new RuntimeException("Lesson not found with id: " + id);
+            throw new NotFoundException("Lesson not found with id: " + id);
         }
         lessonRepo.deleteById(id);
     }

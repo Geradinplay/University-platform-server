@@ -35,10 +35,12 @@ public class SecurityConfig {
                         // Публичные эндпоинты - открыты всем
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/actuator/**").permitAll()
+                        .requestMatchers("/api/faculties/**").permitAll()
                         .requestMatchers("/api/subjects/**").permitAll()
                         .requestMatchers("/api/professors/**").permitAll()
                         .requestMatchers("/api/classrooms/**").permitAll()
                         .requestMatchers("/api/schedule/**").permitAll()
+                        .requestMatchers("/api/schedules/**").permitAll()
                         .requestMatchers("/api/break/**").permitAll()
                         .requestMatchers("/api/lessons/**").permitAll()
                         // Админка требует ADMIN роль
@@ -56,10 +58,19 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5500", "http://localhost:5500"));
+
+        // Разрешаем запросы с этих источников для разработки
+        configuration.setAllowedOrigins(Arrays.asList(
+            "http://localhost:5500",
+            "http://127.0.0.1:5500",
+            "http://localhost:63342",
+            "http://127.0.0.1:63342"
+        ));
+
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Authorization"));
+        // Теперь можно использовать credentials с конкретными origins
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
 
