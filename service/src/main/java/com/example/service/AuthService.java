@@ -32,6 +32,8 @@ public class AuthService {
 
         UserEntity user = new UserEntity();
         user.setUsername(dto.getUsername());
+        // Если name не передан, используем username в качестве значения по умолчанию
+        user.setName(dto.getName() != null && !dto.getName().isEmpty() ? dto.getName() : dto.getUsername());
         user.setEmail(dto.getEmail());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
 

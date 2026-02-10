@@ -12,7 +12,9 @@ import lombok.NoArgsConstructor;
 public class UserDTO {
     private Long id;
     private String username;
+    private String name; // ФИО пользователя
     private String email;
     private String role;
     private Boolean isBanned;
+    private Long professorId; // ID профессора (может быть null)
 }

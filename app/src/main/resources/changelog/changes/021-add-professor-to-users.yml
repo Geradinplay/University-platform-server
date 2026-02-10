@@ -1,0 +1,22 @@
+databaseChangeLog:
+  # Добавляем поле professor_id в таблицу users
+  - changeSet:
+      id: 20260210-5-add-professor-to-users
+      author: geradine
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: professor_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+        - addForeignKeyConstraint:
+            baseTableName: users
+            baseColumnNames: professor_id
+            constraintName: fk_users_professor
+            referencedTableName: professors
+            referencedColumnNames: id
+            onDelete: SET NULL
+

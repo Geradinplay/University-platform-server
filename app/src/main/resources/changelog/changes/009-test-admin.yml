@@ -10,6 +10,9 @@ databaseChangeLog:
                   name: username
                   value: admin
               - column:
+                  name: name
+                  value: "Администратор Системы"
+              - column:
                   name: email
                   value: admin@example.com
               - column:
@@ -22,6 +25,9 @@ databaseChangeLog:
               - column:
                   name: status
                   value: ACTIVE
+              - column:
+                  name: professor_id
+                  value: null
               - column:
                   name: created_at
                   valueComputed: CURRENT_TIMESTAMP

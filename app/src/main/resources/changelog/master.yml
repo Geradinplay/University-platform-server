@@ -37,7 +37,13 @@ databaseChangeLog:
   - include:
       file: changelog/changes/008-create-users.yml
   - include:
+      file: changelog/changes/021-add-professor-to-users.yml
+  - include:
+      file: changelog/changes/022-add-name-to-users.yml
+  - include:
       file: changelog/changes/009-test-admin.yml
+  - include:
+      file: changelog/changes/023-test-teacher-users.yml
   - include:
       file: changelog/changes/015-test-data-faculties-schedules.yml
   - include:

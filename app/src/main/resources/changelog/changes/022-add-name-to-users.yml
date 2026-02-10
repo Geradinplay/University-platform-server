@@ -1,0 +1,16 @@
+databaseChangeLog:
+  # Добавляем поле name (ФИО) в таблицу users
+  - changeSet:
+      id: 20260210-6-add-name-to-users
+      author: geradine
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                  defaultValue: ''
+

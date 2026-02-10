@@ -1,0 +1,139 @@
+databaseChangeLog:
+  # Добавляем тестовых пользователей - учителей привязанных к профессорам
+  - changeSet:
+      id: 20260210-7-test-teacher-users
+      author: geradine
+      context: test
+      changes:
+        # Учитель 1: Исаак Ньютон (привязан к профессору Исаак Ньютон)
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: newton
+              - column:
+                  name: name
+                  value: "Исаак Ньютон"
+              - column:
+                  name: email
+                  value: newton@example.com
+              - column:
+                  name: password
+                  # PASSWORD: password123
+                  value: "$2a$12$9TZAcvzogmpNx5zxKtlEYuOi7SNvdFqLhGCa5AO0lKU0Tg2xIUnzS"
+              - column:
+                  name: role
+                  value: USER
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: professor_id
+                  valueComputed: "(SELECT id FROM professors WHERE name = 'Исаак Ньютон')"
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  valueComputed: CURRENT_TIMESTAMP
+
+        # Учитель 2: Карл Гаусс (привязан к профессору Карл Гаусс)
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: gauss
+              - column:
+                  name: name
+                  value: "Карл Гаусс"
+              - column:
+                  name: email
+                  value: gauss@example.com
+              - column:
+                  name: password
+                  # PASSWORD: password123
+                  value: "$2a$12$9TZAcvzogmpNx5zxKtlEYuOi7SNvdFqLhGCa5AO0lKU0Tg2xIUnzS"
+              - column:
+                  name: role
+                  value: USER
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: professor_id
+                  valueComputed: "(SELECT id FROM professors WHERE name = 'Карл Гаусс')"
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  valueComputed: CURRENT_TIMESTAMP
+
+        # Учитель 3: Дональд Кнут (привязан к профессору Дональд Кнут)
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: knuth
+              - column:
+                  name: name
+                  value: "Дональд Кнут"
+              - column:
+                  name: email
+                  value: knuth@example.com
+              - column:
+                  name: password
+                  # PASSWORD: password123
+                  value: "$2a$12$9TZAcvzogmpNx5zxKtlEYuOi7SNvdFqLhGCa5AO0lKU0Tg2xIUnzS"
+              - column:
+                  name: role
+                  value: USER
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: professor_id
+                  valueComputed: "(SELECT id FROM professors WHERE name = 'Дональд Кнут')"
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  valueComputed: CURRENT_TIMESTAMP
+
+        # Обычный пользователь без привязки к профессору
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: user
+              - column:
+                  name: name
+                  value: "Обычный Пользователь"
+              - column:
+                  name: email
+                  value: user@example.com
+              - column:
+                  name: password
+                  # PASSWORD: password123
+                  value: "$2a$12$9TZAcvzogmpNx5zxKtlEYuOi7SNvdFqLhGCa5AO0lKU0Tg2xIUnzS"
+              - column:
+                  name: role
+                  value: USER
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: professor_id
+                  value: null
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  valueComputed: CURRENT_TIMESTAMP
+

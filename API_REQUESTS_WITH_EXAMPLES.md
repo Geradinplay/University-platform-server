@@ -15,6 +15,26 @@
 ```json
 {
   "username": "newuser",
+  "name": "Новый Пользователь",
+  "email": "newuser@example.com",
+  "password": "securePassword123"
+}
+```
+
+**Поля поддерживают кириллицу:**
+```json
+{
+  "username": "иванов",
+  "name": "Иван Иванович Иванов",
+  "email": "ivan@example.com",
+  "password": "пароль123"
+}
+```
+
+**Или без поля name (будет использован username):**
+```json
+{
+  "username": "newuser",
   "email": "newuser@example.com",
   "password": "securePassword123"
 }
@@ -25,9 +45,11 @@
 {
   "id": 1,
   "username": "newuser",
+  "name": "Новый Пользователь",
   "email": "newuser@example.com",
   "role": "USER",
-  "isBanned": false
+  "isBanned": false,
+  "professorId": null
 }
 ```
 
@@ -58,9 +80,11 @@
   "user": {
     "id": 1,
     "username": "admin",
+    "name": "Администратор",
     "email": "admin@example.com",
     "role": "ADMIN",
-    "isBanned": false
+    "isBanned": false,
+    "professorId": null
   }
 }
 ```
@@ -69,6 +93,44 @@
 ```json
 {
   "error": "Invalid username or password"
+}
+```
+
+---
+
+### GET /api/auth/me
+**Описание:** Получить текущего пользователя по JWT токену
+
+**Headers:**
+```
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+
+**Response 200 OK:**
+```json
+{
+  "id": 1,
+  "username": "newton",
+  "name": "Исаак Ньютон",
+  "email": "newton@example.com",
+  "role": "ADMIN",
+  "isBanned": false,
+  "professorId": 1
+}
+```
+
+**Response 401 Unauthorized (неверный или отсутствует токен):**
+```json
+{
+  "error": "Unauthorized"
+}
+```
+
+**Response 404 Not Found (пользователь удален из БД):**
+```json
+{
+  "error": "User not found"
 }
 ```
 
@@ -918,7 +980,31 @@ curl -X POST http://localhost:8080/api/auth/register \
   -H "Content-Type: application/json" \
   -d '{
     "username": "john_doe",
+    "name": "John Doe",
     "email": "john@example.com",
+    "password": "SecurePass123"
+  }'
+```
+
+### Регистрация с кириллицей
+```bash
+curl -X POST http://localhost:8080/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "иванов",
+    "name": "Иван Иванович Иванов",
+    "email": "ivan@example.com",
+    "password": "пароль123"
+  }'
+```
+
+### Регистрация без указания name (будет использован username)
+```bash
+curl -X POST http://localhost:8080/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "jane_doe",
+    "email": "jane@example.com",
     "password": "SecurePass123"
   }'
 ```
@@ -931,6 +1017,13 @@ curl -X POST http://localhost:8080/api/auth/login \
     "username": "john_doe",
     "password": "SecurePass123"
   }'
+```
+
+### Получить текущего пользователя по токену
+```bash
+curl -X GET http://localhost:8080/api/auth/me \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
+  -H "Content-Type: application/json"
 ```
 
 ### Получить все предметы
@@ -1051,6 +1144,7 @@ curl -X GET http://localhost:8080/api/admin/users \
 |-------|----------|---------|--------|
 | POST | `/api/auth/register` | Регистрация | ✅ |
 | POST | `/api/auth/login` | Вход | ✅ |
+| GET | `/api/auth/me` | Получить текущего пользователя | ✅ |
 | GET | `/api/subjects` | Получить все предметы | ✅ |
 | POST | `/api/subjects` | Создать предмет | ✅ |
 | PUT | `/api/subjects/{id}` | Обновить предмет | ✅ |

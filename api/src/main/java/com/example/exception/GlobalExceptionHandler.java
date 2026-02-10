@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 import java.util.Map;
+import com.example.exception.UserAlreadyExistsException;
+import com.example.exception.AuthException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -31,6 +33,16 @@ public class GlobalExceptionHandler {
         return build(HttpStatus.BAD_REQUEST, msg);
     }
 
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<Map<String, Object>> handleUserAlreadyExists(UserAlreadyExistsException ex) {
+        return build(HttpStatus.BAD_REQUEST, ex.getMessage());
+    }
+
+    @ExceptionHandler(AuthException.class)
+    public ResponseEntity<Map<String, Object>> handleAuth(AuthException ex) {
+        return build(HttpStatus.UNAUTHORIZED, ex.getMessage());
+    }
+
     @ExceptionHandler(ApiException.class)
     public ResponseEntity<Map<String, Object>> handleApi(ApiException ex) {
         return build(HttpStatus.BAD_REQUEST, ex.getMessage());
@@ -38,6 +50,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleOther(Exception ex) {
+        ex.printStackTrace(); // Для логирования при разработке
         return build(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error");
     }
 

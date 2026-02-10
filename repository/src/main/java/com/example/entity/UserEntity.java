@@ -19,6 +19,9 @@ public class UserEntity {
     @Column(nullable = false, unique = true) // Логин обязателен и не должен повторяться
     private String username;
 
+    @Column(nullable = false) // ФИО пользователя
+    private String name;
+
     @Column(nullable = false, unique = true) // Добавляем email, он был в твоем маппере
     private String email;
 
@@ -32,4 +35,8 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserStatus status = UserStatus.ACTIVE; // Статус по умолчанию
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "professor_id", nullable = true)
+    private Professor professor; // Связь с профессором (может быть null)
 }
