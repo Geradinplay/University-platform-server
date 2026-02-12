@@ -11,10 +11,12 @@ public class ScheduleDTO {
     private Long facultyId;
     @NotNull
     private Integer semester;
+    @NotNull
+    private Boolean isExam = false;
 
     public ScheduleDTO() {}
-    public ScheduleDTO(Long id, String name, Long facultyId, Integer semester) {
-        this.id = id; this.name = name; this.facultyId = facultyId; this.semester = semester;
+    public ScheduleDTO(Long id, String name, Long facultyId, Integer semester, Boolean isExam) {
+        this.id = id; this.name = name; this.facultyId = facultyId; this.semester = semester; this.isExam = isExam;
     }
 
     public Long getId() { return id; }
@@ -25,5 +27,7 @@ public class ScheduleDTO {
     public void setFacultyId(Long facultyId) { this.facultyId = facultyId; }
     public Integer getSemester() { return semester; }
     public void setSemester(Integer semester) { this.semester = semester; }
+    public Boolean getIsExam() { return isExam; }
+    public void setIsExam(Boolean isExam) { this.isExam = isExam; }
 }
 

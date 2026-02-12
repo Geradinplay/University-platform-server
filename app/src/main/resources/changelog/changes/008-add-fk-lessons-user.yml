@@ -1,0 +1,14 @@
+databaseChangeLog:
+  # Добавляем FK для lessons.user_id после создания таблицы users
+  - changeSet:
+      id: 20260210-8-add-fk-lessons-user
+      author: geradine
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: lessons
+            baseColumnNames: user_id
+            constraintName: fk_lessons_user
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: SET NULL
+

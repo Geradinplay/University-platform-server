@@ -36,7 +36,6 @@ public class UserEntity {
     @Column(nullable = false)
     private UserStatus status = UserStatus.ACTIVE; // Статус по умолчанию
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "professor_id", nullable = true)
-    private Professor professor; // Связь с профессором (может быть null)
+    @Column(nullable = false)
+    private Boolean isProfessor = false; // true если пользователь является профессором
 }

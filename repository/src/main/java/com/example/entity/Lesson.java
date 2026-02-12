@@ -1,7 +1,7 @@
 package com.example.entity;
 
 import jakarta.persistence.*;
-import java.time.LocalTime; // Импортируем нужный тип
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "lessons")
@@ -15,7 +15,6 @@ public class Lesson implements Schedulable{
     @JoinColumn(name = "subject_id", nullable = false)
     private Subject subject;
 
-    // Заменили time на два поля
     @Column(name = "start_time", nullable = false)
     private LocalTime startTime;
 
@@ -26,14 +25,13 @@ public class Lesson implements Schedulable{
     private Integer day;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "professor_id")
-    private Professor professor;
+    @JoinColumn(name = "user_id")
+    private UserEntity user;  // Профессор - это User с isProfessor = true
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "classroom_id")
     private Classroom classroom;
 
-    // Новая связь с расписанием
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id", nullable = false)
     private Schedule schedule;
@@ -52,8 +50,10 @@ public class Lesson implements Schedulable{
     public void setSubject(Subject subject) { this.subject = subject; }
     public Integer getDay() { return day; }
     public void setDay(Integer day) { this.day = day; }
-    public Professor getProfessor() { return professor; }
-    public void setProfessor(Professor professor) { this.professor = professor; }
+
+    public UserEntity getUser() { return user; }
+    public void setUser(UserEntity user) { this.user = user; }
+
     public Classroom getClassroom() { return classroom; }
     public void setClassroom(Classroom classroom) { this.classroom = classroom; }
 

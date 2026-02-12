@@ -2,15 +2,16 @@ package com.example.mapper;
 
 import com.example.dto.ClassroomDTO;
 import com.example.dto.LessonDTO;
-import com.example.dto.ProfessorDTO;
 import com.example.dto.SubjectDTO;
 import com.example.entity.Lesson;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class LessonMapper {
 
-    // Убрали финальное поле BreakMapper и @RequiredArgsConstructor, так как зависимости больше нет
+    private final UserMapper userMapper;
 
     public LessonDTO toDTO(Lesson lesson) {
         if (lesson == null) return null;
@@ -31,11 +32,8 @@ public class LessonMapper {
             ));
         }
 
-        if (lesson.getProfessor() != null) {
-            dto.setProfessor(new ProfessorDTO(
-                    lesson.getProfessor().getId(),
-                    lesson.getProfessor().getName()
-            ));
+        if (lesson.getUser() != null) {
+            dto.setUser(userMapper.toDto(lesson.getUser()));
         }
 
         if (lesson.getClassroom() != null) {
@@ -44,8 +42,6 @@ public class LessonMapper {
                     lesson.getClassroom().getNumber()
             ));
         }
-
-        // Блок с breakInfo удален, так как таблицы не связаны
 
         return dto;
     }
@@ -62,7 +58,7 @@ public class LessonMapper {
         lesson.setEndTime(dto.getEndTime());
         lesson.setDay(dto.getDay());
 
-        // ID связей (subjectId, professorId и т.д.) обрабатываются в Service через репозитории
+        // ID связей (subjectId, userId и т.д.) обрабатываются в Service через репозитории
         return lesson;
     }
 

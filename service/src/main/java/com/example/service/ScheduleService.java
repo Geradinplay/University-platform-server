@@ -27,11 +27,12 @@ public class ScheduleService {
     }
 
     @Transactional
-    public Schedule create(String name, Long facultyId, Integer semester) {
+    public Schedule create(String name, Long facultyId, Integer semester, Boolean isExam) {
         Schedule s = new Schedule();
         s.setName(name);
         s.setFacultyId(facultyId);
         s.setSemester(semester);
+        s.setIsExam(isExam != null ? isExam : false);
         return scheduleRepo.save(s);
     }
 
@@ -40,11 +41,12 @@ public class ScheduleService {
     }
 
     @Transactional
-    public Schedule update(Long id, String name, Long facultyId, Integer semester) {
+    public Schedule update(Long id, String name, Long facultyId, Integer semester, Boolean isExam) {
         Schedule s = scheduleRepo.findById(id).orElseThrow(() -> new ScheduleNotFoundException(id));
         s.setName(name);
         s.setFacultyId(facultyId);
         s.setSemester(semester);
+        s.setIsExam(isExam != null ? isExam : false);
         return scheduleRepo.save(s);
     }
 

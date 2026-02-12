@@ -42,6 +42,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/schedule/**").permitAll()
                         .requestMatchers("/api/schedules/**").permitAll()
                         .requestMatchers("/api/break/**").permitAll()
+                        .requestMatchers("/api/users/**").permitAll()
                         .requestMatchers("/api/lessons/**").permitAll()
                         // Админка требует ADMIN роль
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")

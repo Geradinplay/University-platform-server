@@ -1,0 +1,25 @@
+databaseChangeLog:
+  # Замена professor_id на is_professor в таблице users
+  - changeSet:
+      id: 20260210-6-replace-professor-id-with-is-professor
+      author: geradine
+      changes:
+        # Удаляем внешний ключ
+        - dropForeignKeyConstraint:
+            baseTableName: users
+            constraintName: fk_users_professor
+        # Удаляем колонку professor_id
+        - dropColumn:
+            tableName: users
+            columnName: professor_id
+        # Добавляем новую колонку is_professor
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: is_professor
+                  type: BOOLEAN
+                  defaultValue: false
+                  constraints:
+                    nullable: false
+

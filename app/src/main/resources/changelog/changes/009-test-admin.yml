@@ -26,8 +26,8 @@ databaseChangeLog:
                   name: status
                   value: ACTIVE
               - column:
-                  name: professor_id
-                  value: null
+                  name: is_professor
+                  value: false
               - column:
                   name: created_at
                   valueComputed: CURRENT_TIMESTAMP

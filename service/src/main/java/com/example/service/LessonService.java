@@ -26,7 +26,7 @@ public class LessonService {
 
     // Добавляем недостающие репозитории для поиска связей
     private final SubjectRepo subjectRepo;
-    private final ProfessorRepo professorRepo;
+    private final UserRepo userRepo;  // Профессор - это User с isProfessor = true
     private final ClassroomRepo classroomRepo;
     private final ScheduleRepo scheduleRepo;
 
@@ -43,8 +43,8 @@ public class LessonService {
         lesson.setSubject(subjectRepo.findById(dto.getSubjectId())
                 .orElseThrow(() -> new NotFoundException("Subject not found with id: " + dto.getSubjectId())));
 
-        lesson.setProfessor(professorRepo.findById(dto.getProfessorId())
-                .orElseThrow(() -> new NotFoundException("Professor not found with id: " + dto.getProfessorId())));
+        lesson.setUser(userRepo.findById(dto.getUserId())
+                .orElseThrow(() -> new NotFoundException("User/Professor not found with id: " + dto.getUserId())));
 
         lesson.setClassroom(classroomRepo.findById(dto.getClassroomId())
                 .orElseThrow(() -> new NotFoundException("Classroom not found with id: " + dto.getClassroomId())));
@@ -81,9 +81,9 @@ public class LessonService {
             lesson.setSubject(subjectRepo.findById(dto.getSubjectId())
                     .orElseThrow(() -> new NotFoundException("Subject not found with id: " + dto.getSubjectId())));
         }
-        if (dto.getProfessorId() != null) {
-            lesson.setProfessor(professorRepo.findById(dto.getProfessorId())
-                    .orElseThrow(() -> new NotFoundException("Professor not found with id: " + dto.getProfessorId())));
+        if (dto.getUserId() != null) {
+            lesson.setUser(userRepo.findById(dto.getUserId())
+                    .orElseThrow(() -> new NotFoundException("User/Professor not found with id: " + dto.getUserId())));
         }
         if (dto.getClassroomId() != null) {
             lesson.setClassroom(classroomRepo.findById(dto.getClassroomId())

@@ -44,29 +44,8 @@ databaseChangeLog:
             columns:
               - column: { name: number, value: "101" }
 
-        # 4. ЗАНЯТИЯ (Добавили schedule_id)
-        - insert:
-            tableName: lessons
-            columns:
-              - column: { name: subject_id, valueNumeric: 1 }
-              - column: { name: schedule_id, valueNumeric: 1 } # Ссылка на расписание
-              - column: { name: start_time, value: "09:00:00" }
-              - column: { name: end_time, value: "10:30:00" }
-              - column: { name: day, value: 1 }
-              - column: { name: professor_id, valueNumeric: 1 }
-              - column: { name: classroom_id, valueNumeric: 1 }
-        - insert:
-            tableName: lessons
-            columns:
-              - column: { name: subject_id, valueNumeric: 2 }
-              - column: { name: schedule_id, valueNumeric: 1 } # Ссылка на расписание
-              - column: { name: start_time, value: "10:45:00" }
-              - column: { name: end_time, value: "12:15:00" }
-              - column: { name: day, value: 1 }
-              - column: { name: professor_id, valueNumeric: 2 }
-              - column: { name: classroom_id, valueNumeric: 2 }
-
-        # 5. ПЕРЕМЕНЫ (Добавили schedule_id)
+        # 4. ПЕРЕМЕНЫ (Добавили schedule_id)
+        # Уроки будут добавлены позже когда существуют users
         - insert:
             tableName: breaks
             columns:
@@ -74,4 +53,3 @@ databaseChangeLog:
               - column: { name: start_time, value: "10:30:00" }
               - column: { name: end_time, value: "10:45:00" }
               - column: { name: day, value: 1 }
-              - column: { name: lesson_id, valueNumeric: 1 }

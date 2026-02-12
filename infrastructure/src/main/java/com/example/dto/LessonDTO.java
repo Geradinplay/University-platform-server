@@ -30,7 +30,7 @@ public class LessonDTO {
     private SubjectDTO subject;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private ProfessorDTO professor;
+    private com.example.dto.UserDTO user;  // Профессор - это User с isProfessor = true
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private ClassroomDTO classroom;
@@ -41,7 +41,7 @@ public class LessonDTO {
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull(groups = CreateGroup.class)
-    private Long professorId;
+    private Long userId;  // ID профессора (User с isProfessor = true)
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull(groups = CreateGroup.class)

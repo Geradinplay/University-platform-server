@@ -26,6 +26,8 @@ databaseChangeLog:
   - include:
       file: changelog/changes/019-add-semester-to-schedules.yml
   - include:
+      file: changelog/changes/026-add-is-exam-to-schedules.yml
+  - include:
       file: changelog/changes/016-add-cascade-delete-faculties.yml
   - include:
       file: changelog/changes/017-add-cascade-delete-schedule-lessons.yml
@@ -37,9 +39,13 @@ databaseChangeLog:
   - include:
       file: changelog/changes/008-create-users.yml
   - include:
+      file: changelog/changes/008-add-fk-lessons-user.yml
+  - include:
       file: changelog/changes/021-add-professor-to-users.yml
   - include:
       file: changelog/changes/022-add-name-to-users.yml
+  - include:
+      file: changelog/changes/024-replace-professor-id-with-is-professor.yml
   - include:
       file: changelog/changes/009-test-admin.yml
   - include:
@@ -48,4 +54,6 @@ databaseChangeLog:
       file: changelog/changes/015-test-data-faculties-schedules.yml
   - include:
       file: changelog/changes/020-update-existing-schedules-semester.yml
+  - include:
+      file: changelog/changes/027-patch-schedules-with-is-exam.yml
 

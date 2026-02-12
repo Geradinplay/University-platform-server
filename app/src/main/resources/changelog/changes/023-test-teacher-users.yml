@@ -29,8 +29,8 @@ databaseChangeLog:
                   name: status
                   value: ACTIVE
               - column:
-                  name: professor_id
-                  valueComputed: "(SELECT id FROM professors WHERE name = 'Исаак Ньютон')"
+                  name: is_professor
+                  value: true
               - column:
                   name: created_at
                   valueComputed: CURRENT_TIMESTAMP
@@ -38,7 +38,7 @@ databaseChangeLog:
                   name: updated_at
                   valueComputed: CURRENT_TIMESTAMP
 
-        # Учитель 2: Карл Гаусс (привязан к профессору Карл Гаусс)
+        # Учитель 2: Карл Гаусс
         - insert:
             tableName: users
             columns:
@@ -62,8 +62,8 @@ databaseChangeLog:
                   name: status
                   value: ACTIVE
               - column:
-                  name: professor_id
-                  valueComputed: "(SELECT id FROM professors WHERE name = 'Карл Гаусс')"
+                  name: is_professor
+                  value: true
               - column:
                   name: created_at
                   valueComputed: CURRENT_TIMESTAMP
@@ -71,7 +71,7 @@ databaseChangeLog:
                   name: updated_at
                   valueComputed: CURRENT_TIMESTAMP
 
-        # Учитель 3: Дональд Кнут (привязан к профессору Дональд Кнут)
+        # Учитель 3: Дональд Кнут
         - insert:
             tableName: users
             columns:
@@ -95,8 +95,8 @@ databaseChangeLog:
                   name: status
                   value: ACTIVE
               - column:
-                  name: professor_id
-                  valueComputed: "(SELECT id FROM professors WHERE name = 'Дональд Кнут')"
+                  name: is_professor
+                  value: true
               - column:
                   name: created_at
                   valueComputed: CURRENT_TIMESTAMP
@@ -104,7 +104,7 @@ databaseChangeLog:
                   name: updated_at
                   valueComputed: CURRENT_TIMESTAMP
 
-        # Обычный пользователь без привязки к профессору
+        # Обычный пользователь без статуса профессора
         - insert:
             tableName: users
             columns:
@@ -128,8 +128,8 @@ databaseChangeLog:
                   name: status
                   value: ACTIVE
               - column:
-                  name: professor_id
-                  value: null
+                  name: is_professor
+                  value: false
               - column:
                   name: created_at
                   valueComputed: CURRENT_TIMESTAMP

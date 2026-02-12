@@ -19,7 +19,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: professor_id
+                  name: user_id
                   type: BIGINT
               - column:
                   name: classroom_id
@@ -48,12 +48,7 @@ databaseChangeLog:
             constraintName: fk_lessons_subject
             referencedTableName: subjects
             referencedColumnNames: id
-        - addForeignKeyConstraint:
-            baseTableName: lessons
-            baseColumnNames: professor_id
-            constraintName: fk_lessons_professor
-            referencedTableName: professors
-            referencedColumnNames: id
+        # FK на users будет добавлен позже после создания таблицы users
         - addForeignKeyConstraint:
             baseTableName: lessons
             baseColumnNames: classroom_id

@@ -1,0 +1,16 @@
+databaseChangeLog:
+  # Добавление поля is_exam в таблицу schedules
+  - changeSet:
+      id: 20260211-1-add-is-exam-to-schedules
+      author: geradine
+      changes:
+        - addColumn:
+            tableName: schedules
+            columns:
+              - column:
+                  name: is_exam
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+                  defaultValueBoolean: false
+

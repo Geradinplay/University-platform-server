@@ -14,7 +14,8 @@ public class ScheduleMapper {
                 entity.getId(),
                 entity.getName(),
                 entity.getFacultyId(),
-                entity.getSemester()
+                entity.getSemester(),
+                entity.getIsExam()
         );
     }
 
@@ -24,6 +25,7 @@ public class ScheduleMapper {
         entity.setName(dto.getName());
         entity.setFacultyId(dto.getFacultyId());
         entity.setSemester(dto.getSemester());
+        entity.setIsExam(dto.getIsExam());
         return entity;
     }
 
@@ -34,6 +36,7 @@ public class ScheduleMapper {
         entity.setName(dto.getName());
         entity.setFacultyId(dto.getFacultyId());
         entity.setSemester(dto.getSemester());
+        entity.setIsExam(dto.getIsExam());
         return entity;
     }
 }

@@ -1,0 +1,32 @@
+databaseChangeLog:
+  # Замена professor_id на user_id в таблице lessons
+  - changeSet:
+      id: 20260210-7-replace-professor-id-with-user-id-in-lessons
+      author: geradine
+      changes:
+        # Удаляем внешний ключ на professors
+        - dropForeignKeyConstraint:
+            baseTableName: lessons
+            constraintName: fk_lessons_professor
+        # Удаляем колонку professor_id
+        - dropColumn:
+            tableName: lessons
+            columnName: professor_id
+        # Добавляем новую колонку user_id
+        - addColumn:
+            tableName: lessons
+            columns:
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+        # Добавляем внешний ключ на users таблицу
+        - addForeignKeyConstraint:
+            baseTableName: lessons
+            baseColumnNames: user_id
+            constraintName: fk_lessons_user
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: SET NULL
+

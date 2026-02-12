@@ -21,9 +21,7 @@ public class UserMapper {
         dto.setRole(entity.getRole().name());
 
         dto.setIsBanned(entity.getStatus() == UserStatus.BANNED);
-
-        // Маппим профессора
-        dto.setProfessorId(entity.getProfessor() != null ? entity.getProfessor().getId() : null);
+        dto.setIsProfessor(entity.getIsProfessor() != null && entity.getIsProfessor());
 
         return dto;
     }
@@ -49,8 +47,8 @@ public class UserMapper {
             entity.setStatus(UserStatus.ACTIVE);
         }
 
-        // Профессор маппится отдельно в сервисе (так как нужно получить из БД по ID)
-        // Здесь мы не маппим professor, это должно быть в сервисе
+        // Маппим флаг isProfessor
+        entity.setIsProfessor(dto.getIsProfessor() != null && dto.getIsProfessor());
 
         return entity;
     }

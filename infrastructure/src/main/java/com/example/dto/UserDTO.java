@@ -16,5 +16,5 @@ public class UserDTO {
     private String email;
     private String role;
     private Boolean isBanned;
-    private Long professorId; // ID профессора (может быть null)
+    private Boolean isProfessor; // true если пользователь является профессором
 }

@@ -1,0 +1,43 @@
+databaseChangeLog:
+  # Удаляем старые расписания и накатываем новые с полем is_exam
+  - changeSet:
+      id: 20260211-2-patch-schedules-with-is-exam
+      author: geradine
+      context: test
+      changes:
+        # Удаляем все старые расписания
+        - delete:
+            tableName: schedules
+
+        # Накатываем новые расписания с полем is_exam
+        - insert:
+            tableName: schedules
+            columns:
+              - column: { name: name, value: "Осенний семестр 2026" }
+              - column: { name: faculty_id, valueNumeric: 1 }
+              - column: { name: is_exam, value: false }
+
+        - insert:
+            tableName: schedules
+            columns:
+              - column: { name: name, value: "ФИТ 1 курс - Осень 2026" }
+              - column: { name: faculty_id, valueComputed: "(SELECT id FROM faculties WHERE short_name = 'ФИТ')" }
+              - column: { name: semester, value: 1 }
+              - column: { name: is_exam, value: false }
+
+        - insert:
+            tableName: schedules
+            columns:
+              - column: { name: name, value: "ФПМ 2 курс - Осень 2026" }
+              - column: { name: faculty_id, valueComputed: "(SELECT id FROM faculties WHERE short_name = 'ФПМ')" }
+              - column: { name: semester, value: 2 }
+              - column: { name: is_exam, value: false }
+
+        - insert:
+            tableName: schedules
+            columns:
+              - column: { name: name, value: "ЭК 3 курс - Осень 2026" }
+              - column: { name: faculty_id, valueComputed: "(SELECT id FROM faculties WHERE short_name = 'ЭК')" }
+              - column: { name: semester, value: 3 }
+              - column: { name: is_exam, value: false }
+

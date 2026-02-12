@@ -113,7 +113,7 @@ databaseChangeLog:
               - column: { name: start_time, value: "09:00:00" }
               - column: { name: end_time, value: "10:30:00" }
               - column: { name: day, value: 1 }
-              - column: { name: professor_id, valueComputed: "(SELECT id FROM professors WHERE name = 'Исаак Ньютон')" }
+              - column: { name: user_id, valueComputed: "(SELECT id FROM users WHERE name = 'Исаак Ньютон')" }
               - column: { name: classroom_id, valueComputed: "(SELECT id FROM classrooms WHERE number = '401')" }
 
         - insert:
@@ -124,7 +124,7 @@ databaseChangeLog:
               - column: { name: start_time, value: "10:45:00" }
               - column: { name: end_time, value: "12:15:00" }
               - column: { name: day, value: 1 }
-              - column: { name: professor_id, valueComputed: "(SELECT id FROM professors WHERE name = 'Карл Гаусс')" }
+              - column: { name: user_id, valueComputed: "(SELECT id FROM users WHERE name = 'Карл Гаусс')" }
               - column: { name: classroom_id, valueComputed: "(SELECT id FROM classrooms WHERE number = '402')" }
 
         # Вторник
@@ -136,7 +136,7 @@ databaseChangeLog:
               - column: { name: start_time, value: "14:00:00" }
               - column: { name: end_time, value: "15:30:00" }
               - column: { name: day, value: 2 }
-              - column: { name: professor_id, valueComputed: "(SELECT id FROM professors WHERE name = 'Исаак Ньютон')" }
+              - column: { name: user_id, valueComputed: "(SELECT id FROM users WHERE name = 'Исаак Ньютон')" }
               - column: { name: classroom_id, valueComputed: "(SELECT id FROM classrooms WHERE number = '401')" }
 
         # ============================================================
@@ -151,7 +151,7 @@ databaseChangeLog:
               - column: { name: start_time, value: "08:00:00" }
               - column: { name: end_time, value: "09:30:00" }
               - column: { name: day, value: 1 }
-              - column: { name: professor_id, valueComputed: "(SELECT id FROM professors WHERE name = 'Карл Гаусс')" }
+              - column: { name: user_id, valueComputed: "(SELECT id FROM users WHERE name = 'Карл Гаусс')" }
               - column: { name: classroom_id, valueComputed: "(SELECT id FROM classrooms WHERE number = '501')" }
 
         - insert:
@@ -162,7 +162,7 @@ databaseChangeLog:
               - column: { name: start_time, value: "09:45:00" }
               - column: { name: end_time, value: "11:15:00" }
               - column: { name: day, value: 1 }
-              - column: { name: professor_id, valueComputed: "(SELECT id FROM professors WHERE name = 'Исаак Ньютон')" }
+              - column: { name: user_id, valueComputed: "(SELECT id FROM users WHERE name = 'Исаак Ньютон')" }
               - column: { name: classroom_id, valueComputed: "(SELECT id FROM classrooms WHERE number = '502')" }
 
         # Среда
@@ -174,7 +174,7 @@ databaseChangeLog:
               - column: { name: start_time, value: "10:00:00" }
               - column: { name: end_time, value: "11:30:00" }
               - column: { name: day, value: 3 }
-              - column: { name: professor_id, valueComputed: "(SELECT id FROM professors WHERE name = 'Карл Гаусс')" }
+              - column: { name: user_id, valueComputed: "(SELECT id FROM users WHERE name = 'Карл Гаусс')" }
               - column: { name: classroom_id, valueComputed: "(SELECT id FROM classrooms WHERE number = '501')" }
 
         # ============================================================
@@ -189,7 +189,7 @@ databaseChangeLog:
               - column: { name: start_time, value: "09:00:00" }
               - column: { name: end_time, value: "10:30:00" }
               - column: { name: day, value: 1 }
-              - column: { name: professor_id, valueComputed: "(SELECT id FROM professors WHERE name = 'Дональд Кнут')" }
+              - column: { name: user_id, valueComputed: "(SELECT id FROM users WHERE name = 'Дональд Кнут')" }
               - column: { name: classroom_id, valueComputed: "(SELECT id FROM classrooms WHERE number = '401')" }
 
         - insert:
@@ -200,7 +200,7 @@ databaseChangeLog:
               - column: { name: start_time, value: "10:45:00" }
               - column: { name: end_time, value: "12:15:00" }
               - column: { name: day, value: 1 }
-              - column: { name: professor_id, valueComputed: "(SELECT id FROM professors WHERE name = 'Ада Лавлейс')" }
+              - column: { name: user_id, valueComputed: "(SELECT id FROM users WHERE name = 'Карл Гаусс')" }
               - column: { name: classroom_id, valueComputed: "(SELECT id FROM classrooms WHERE number = '402')" }
 
         # Четверг
@@ -212,6 +212,6 @@ databaseChangeLog:
               - column: { name: start_time, value: "13:30:00" }
               - column: { name: end_time, value: "15:00:00" }
               - column: { name: day, value: 4 }
-              - column: { name: professor_id, valueComputed: "(SELECT id FROM professors WHERE name = 'Дональд Кнут')" }
+              - column: { name: user_id, valueComputed: "(SELECT id FROM users WHERE name = 'Дональд Кнут')" }
               - column: { name: classroom_id, valueComputed: "(SELECT id FROM classrooms WHERE number = '501')" }
 

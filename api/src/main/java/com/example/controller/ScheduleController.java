@@ -32,27 +32,27 @@ public class ScheduleController {
     @GetMapping
     public List<ScheduleDTO> getAll() {
         return scheduleService.getAll().stream()
-                .map(s -> new ScheduleDTO(s.getId(), s.getName(), s.getFacultyId(), s.getSemester()))
+                .map(s -> new ScheduleDTO(s.getId(), s.getName(), s.getFacultyId(), s.getSemester(), s.getIsExam()))
                 .collect(Collectors.toList());
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ScheduleDTO create(@RequestBody @Valid ScheduleDTO dto) {
-        Schedule created = scheduleService.create(dto.getName(), dto.getFacultyId(), dto.getSemester());
-        return new ScheduleDTO(created.getId(), created.getName(), created.getFacultyId(), created.getSemester());
+        Schedule created = scheduleService.create(dto.getName(), dto.getFacultyId(), dto.getSemester(), dto.getIsExam());
+        return new ScheduleDTO(created.getId(), created.getName(), created.getFacultyId(), created.getSemester(), created.getIsExam());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ScheduleDTO> getById(@PathVariable Long id) {
         Schedule s = scheduleService.getById(id);
-        return ResponseEntity.ok(new ScheduleDTO(s.getId(), s.getName(), s.getFacultyId(), s.getSemester()));
+        return ResponseEntity.ok(new ScheduleDTO(s.getId(), s.getName(), s.getFacultyId(), s.getSemester(), s.getIsExam()));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ScheduleDTO> update(@PathVariable Long id, @RequestBody @Valid ScheduleDTO dto) {
-        Schedule updated = scheduleService.update(id, dto.getName(), dto.getFacultyId(), dto.getSemester());
-        return ResponseEntity.ok(new ScheduleDTO(updated.getId(), updated.getName(), updated.getFacultyId(), updated.getSemester()));
+        Schedule updated = scheduleService.update(id, dto.getName(), dto.getFacultyId(), dto.getSemester(), dto.getIsExam());
+        return ResponseEntity.ok(new ScheduleDTO(updated.getId(), updated.getName(), updated.getFacultyId(), updated.getSemester(), updated.getIsExam()));
     }
 
     @DeleteMapping("/{id}")

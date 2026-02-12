@@ -20,6 +20,9 @@ public class Schedule {
     @Column(nullable = false)
     private Integer semester;
 
+    @Column(nullable = false)
+    private Boolean isExam = false;
+
     // Связь с уроками - при удалении расписания удаляются все уроки
     @OneToMany(mappedBy = "schedule", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Lesson> lessons = new ArrayList<>();
@@ -39,6 +42,9 @@ public class Schedule {
 
     public Integer getSemester() { return semester; }
     public void setSemester(Integer semester) { this.semester = semester; }
+
+    public Boolean getIsExam() { return isExam; }
+    public void setIsExam(Boolean isExam) { this.isExam = isExam; }
 
     public List<Lesson> getLessons() { return lessons; }
     public void setLessons(List<Lesson> lessons) { this.lessons = lessons; }
