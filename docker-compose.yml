@@ -13,10 +13,10 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   app:
-#    image: geradine/eureka-app:1.0
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: geradinplay/eureka-app:1.0
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
     depends_on:
       - postgres
     ports:
