@@ -56,4 +56,7 @@ databaseChangeLog:
       file: changelog/changes/020-update-existing-schedules-semester.yml
   - include:
       file: changelog/changes/027-patch-schedules-with-is-exam.yml
-
+  - include:
+      file: changelog/changes/028-recreate-users-table.yml
+  - include:
+      file: changelog/changes/029-insert-admin-user.yml

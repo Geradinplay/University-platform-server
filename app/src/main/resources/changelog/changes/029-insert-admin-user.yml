@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20260221-2-insert-admin-user
+      author: geradine
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: admin
+              - column:
+                  name: name
+                  value: "Администратор"
+              - column:
+                  name: email
+                  value: admin@admin.com
+              - column:
+                  name: password
+                  # Пароль: admin123 (bcrypt $2a$12$eIXQ5Q6vQ1QwQwQwQwQwQeQwQwQwQwQwQwQwQwQwQwQwQwQwQw)
+                  value: "$2a$12$ZQAQlXG9gm7ZMmb4.ikuHeGJ2gyqe7l/DOKIZq081Oi8Wkc/r7W3."
+              - column:
+                  name: role
+                  value: ADMIN
+              - column:
+                  name: status
+                  value: ACTIVE
+              - column:
+                  name: is_professor
+                  value: false
+              - column:
+                  name: created_at
+                  valueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  valueComputed: CURRENT_TIMESTAMP
+

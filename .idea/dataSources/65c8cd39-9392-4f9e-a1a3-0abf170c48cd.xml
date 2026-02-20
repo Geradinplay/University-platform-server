@@ -3,9 +3,8 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.53">
     <root id="1">
       <DateStyle>mdy</DateStyle>
-      <IntrospectionStateNumber>2959</IntrospectionStateNumber>
       <ServerVersion>16.11</ServerVersion>
-      <StartupTime>1770719543</StartupTime>
+      <StartupTime>1771622617</StartupTime>
       <TimeZones>true ACDT
 true ACSST
 false ACST
@@ -700,11 +699,55 @@ false posixrules
 13276||10|C|G
 13276||-9223372036854775808|U|G
 13276||10|U|G</Grants>
-      <IntrospectionStateNumber>2959</IntrospectionStateNumber>
       <ObjectId>5</ObjectId>
       <OwnerName>admin</OwnerName>
     </database>
-    <role id="3" parent="1" name="admin">
+    <role id="3" parent="1" name="pg_database_owner">
+      <ObjectId>6171</ObjectId>
+    </role>
+    <role id="4" parent="1" name="pg_read_all_data">
+      <ObjectId>6181</ObjectId>
+    </role>
+    <role id="5" parent="1" name="pg_write_all_data">
+      <ObjectId>6182</ObjectId>
+    </role>
+    <role id="6" parent="1" name="pg_monitor">
+      <ObjectId>3373</ObjectId>
+      <RoleGrants>3374
+3375
+3377</RoleGrants>
+    </role>
+    <role id="7" parent="1" name="pg_read_all_settings">
+      <ObjectId>3374</ObjectId>
+    </role>
+    <role id="8" parent="1" name="pg_read_all_stats">
+      <ObjectId>3375</ObjectId>
+    </role>
+    <role id="9" parent="1" name="pg_stat_scan_tables">
+      <ObjectId>3377</ObjectId>
+    </role>
+    <role id="10" parent="1" name="pg_read_server_files">
+      <ObjectId>4569</ObjectId>
+    </role>
+    <role id="11" parent="1" name="pg_write_server_files">
+      <ObjectId>4570</ObjectId>
+    </role>
+    <role id="12" parent="1" name="pg_execute_server_program">
+      <ObjectId>4571</ObjectId>
+    </role>
+    <role id="13" parent="1" name="pg_signal_backend">
+      <ObjectId>4200</ObjectId>
+    </role>
+    <role id="14" parent="1" name="pg_checkpoint">
+      <ObjectId>4544</ObjectId>
+    </role>
+    <role id="15" parent="1" name="pg_use_reserved_connections">
+      <ObjectId>4550</ObjectId>
+    </role>
+    <role id="16" parent="1" name="pg_create_subscription">
+      <ObjectId>6304</ObjectId>
+    </role>
+    <role id="17" parent="1" name="admin">
       <BypassRls>1</BypassRls>
       <CanLogin>1</CanLogin>
       <CreateDb>1</CreateDb>
@@ -712,51 +755,6 @@ false posixrules
       <ObjectId>10</ObjectId>
       <Replication>1</Replication>
       <SuperRole>1</SuperRole>
-    </role>
-    <role id="4" parent="1" name="pg_checkpoint">
-      <ObjectId>4544</ObjectId>
-    </role>
-    <role id="5" parent="1" name="pg_create_subscription">
-      <ObjectId>6304</ObjectId>
-    </role>
-    <role id="6" parent="1" name="pg_database_owner">
-      <ObjectId>6171</ObjectId>
-    </role>
-    <role id="7" parent="1" name="pg_execute_server_program">
-      <ObjectId>4571</ObjectId>
-    </role>
-    <role id="8" parent="1" name="pg_monitor">
-      <ObjectId>3373</ObjectId>
-      <RoleGrants>3374
-3375
-3377</RoleGrants>
-    </role>
-    <role id="9" parent="1" name="pg_read_all_data">
-      <ObjectId>6181</ObjectId>
-    </role>
-    <role id="10" parent="1" name="pg_read_all_settings">
-      <ObjectId>3374</ObjectId>
-    </role>
-    <role id="11" parent="1" name="pg_read_all_stats">
-      <ObjectId>3375</ObjectId>
-    </role>
-    <role id="12" parent="1" name="pg_read_server_files">
-      <ObjectId>4569</ObjectId>
-    </role>
-    <role id="13" parent="1" name="pg_signal_backend">
-      <ObjectId>4200</ObjectId>
-    </role>
-    <role id="14" parent="1" name="pg_stat_scan_tables">
-      <ObjectId>3377</ObjectId>
-    </role>
-    <role id="15" parent="1" name="pg_use_reserved_connections">
-      <ObjectId>4550</ObjectId>
-    </role>
-    <role id="16" parent="1" name="pg_write_all_data">
-      <ObjectId>6182</ObjectId>
-    </role>
-    <role id="17" parent="1" name="pg_write_server_files">
-      <ObjectId>4570</ObjectId>
     </role>
     <tablespace id="18" parent="1" name="pg_default">
       <ObjectId>1663</ObjectId>
@@ -4119,7 +4117,6 @@ false posixrules
     <schema id="263" parent="2" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>2959</IntrospectionStateNumber>
       <LastIntrospectionLocalTimestamp>2026-02-10.20:22:28</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>524</StateNumber>
@@ -4258,8 +4255,8 @@ false posixrules
       <OwnerName>admin</OwnerName>
     </table>
     <table id="283" parent="263" name="users">
-      <ObjectId>34628</ObjectId>
-      <StateNumber>2943</StateNumber>
+      <ObjectId>16399</ObjectId>
+      <StateNumber>746</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>admin</OwnerName>
     </table>
@@ -4269,7 +4266,6 @@ false posixrules
       <Position>1</Position>
       <StateNumber>2915</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>34570</SequenceId>
       <TypeId>20</TypeId>
     </column>
     <column id="285" parent="273" name="start_time">
@@ -4357,7 +4353,6 @@ false posixrules
       <Position>1</Position>
       <StateNumber>2909</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>34535</SequenceId>
       <TypeId>20</TypeId>
     </column>
     <column id="297" parent="274" name="number">
@@ -4538,7 +4533,6 @@ false posixrules
       <Position>1</Position>
       <StateNumber>2903</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>34508</SequenceId>
       <TypeId>20</TypeId>
     </column>
     <column id="323" parent="277" name="name">
@@ -4593,7 +4587,6 @@ false posixrules
       <Position>1</Position>
       <StateNumber>2917</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>34583</SequenceId>
       <TypeId>20</TypeId>
     </column>
     <column id="330" parent="278" name="title">
@@ -4657,7 +4650,6 @@ false posixrules
       <Position>1</Position>
       <StateNumber>2913</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>34553</SequenceId>
       <TypeId>20</TypeId>
     </column>
     <column id="339" parent="279" name="subject_id">
@@ -4758,7 +4750,6 @@ false posixrules
       <Position>1</Position>
       <StateNumber>2911</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>34545</SequenceId>
       <TypeId>20</TypeId>
     </column>
     <column id="353" parent="280" name="name">
@@ -4790,7 +4781,6 @@ false posixrules
       <Position>1</Position>
       <StateNumber>2905</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>34516</SequenceId>
       <TypeId>20</TypeId>
     </column>
     <column id="357" parent="281" name="name">
@@ -4845,7 +4835,6 @@ false posixrules
       <Position>1</Position>
       <StateNumber>2907</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>34527</SequenceId>
       <TypeId>20</TypeId>
     </column>
     <column id="364" parent="282" name="name">
@@ -4892,146 +4881,57 @@ false posixrules
       <IdentityKind>by-default</IdentityKind>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>2935</StateNumber>
+      <StateNumber>746</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>34627</SequenceId>
+      <SequenceId>16398</SequenceId>
       <TypeId>20</TypeId>
     </column>
     <column id="370" parent="283" name="username">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>2935</StateNumber>
-      <StoredType>varchar(50)|0s</StoredType>
+      <StateNumber>746</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="371" parent="283" name="email">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>2935</StateNumber>
-      <StoredType>varchar(100)|0s</StoredType>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="372" parent="283" name="password">
-      <NotNull>1</NotNull>
-      <Position>4</Position>
-      <StateNumber>2935</StateNumber>
+      <StateNumber>746</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="373" parent="283" name="role">
-      <DefaultExpression>&apos;USER&apos;::character varying</DefaultExpression>
-      <NotNull>1</NotNull>
-      <Position>5</Position>
-      <StateNumber>2935</StateNumber>
-      <StoredType>varchar(20)|0s</StoredType>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="374" parent="283" name="status">
-      <DefaultExpression>&apos;ACTIVE&apos;::character varying</DefaultExpression>
-      <NotNull>1</NotNull>
-      <Position>6</Position>
-      <StateNumber>2935</StateNumber>
-      <StoredType>varchar(20)|0s</StoredType>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="375" parent="283" name="created_at">
-      <DefaultExpression>now()</DefaultExpression>
-      <NotNull>1</NotNull>
-      <Position>7</Position>
-      <StateNumber>2935</StateNumber>
-      <StoredType>timestamp|0s</StoredType>
-      <TypeId>1114</TypeId>
-    </column>
-    <column id="376" parent="283" name="updated_at">
-      <DefaultExpression>now()</DefaultExpression>
-      <Position>8</Position>
-      <StateNumber>2935</StateNumber>
-      <StoredType>timestamp|0s</StoredType>
-      <TypeId>1114</TypeId>
-    </column>
-    <column id="377" parent="283" name="name">
-      <DefaultExpression>&apos;&apos;::character varying</DefaultExpression>
-      <NotNull>1</NotNull>
-      <Position>10</Position>
-      <StateNumber>2941</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="378" parent="283" name="is_professor">
-      <DefaultExpression>false</DefaultExpression>
-      <NotNull>1</NotNull>
-      <Position>11</Position>
-      <StateNumber>2943</StateNumber>
-      <StoredType>boolean|0s</StoredType>
-      <TypeId>16</TypeId>
-    </column>
-    <index id="379" parent="283" name="users_pkey">
+    <index id="372" parent="283" name="users_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>34635</ObjectId>
+      <ObjectId>16404</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>2935</StateNumber>
+      <StateNumber>746</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="380" parent="283" name="users_username_key">
-      <ColNames>username</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>34637</ObjectId>
-      <StateNumber>2935</StateNumber>
-      <Unique>1</Unique>
-      <AccessMethodId>403</AccessMethodId>
-      <CollationNames>default</CollationNames>
-      <CollationIds>100</CollationIds>
-      <CollationParentNames>pg_catalog</CollationParentNames>
-    </index>
-    <index id="381" parent="283" name="users_email_key">
+    <index id="373" parent="283" name="users_email_key">
       <ColNames>email</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>34639</ObjectId>
-      <StateNumber>2935</StateNumber>
+      <ObjectId>16406</ObjectId>
+      <StateNumber>746</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <index id="382" parent="283" name="idx_users_username">
-      <ColNames>username</ColNames>
-      <ObjectId>34641</ObjectId>
-      <StateNumber>2935</StateNumber>
-      <AccessMethodId>403</AccessMethodId>
-      <CollationNames>default</CollationNames>
-      <CollationIds>100</CollationIds>
-      <CollationParentNames>pg_catalog</CollationParentNames>
-    </index>
-    <index id="383" parent="283" name="idx_users_email">
-      <ColNames>email</ColNames>
-      <ObjectId>34642</ObjectId>
-      <StateNumber>2935</StateNumber>
-      <AccessMethodId>403</AccessMethodId>
-      <CollationNames>default</CollationNames>
-      <CollationIds>100</CollationIds>
-      <CollationParentNames>pg_catalog</CollationParentNames>
-    </index>
-    <key id="384" parent="283" name="users_pkey">
+    <key id="374" parent="283" name="users_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>34636</ObjectId>
+      <ObjectId>16405</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>2935</StateNumber>
-      <UnderlyingIndexId>34635</UnderlyingIndexId>
+      <StateNumber>746</StateNumber>
+      <UnderlyingIndexId>16404</UnderlyingIndexId>
     </key>
-    <key id="385" parent="283" name="users_username_key">
+    <key id="375" parent="283" name="users_email_key">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>34638</ObjectId>
-      <StateNumber>2935</StateNumber>
-      <UnderlyingIndexId>34637</UnderlyingIndexId>
-    </key>
-    <key id="386" parent="283" name="users_email_key">
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>34640</ObjectId>
-      <StateNumber>2935</StateNumber>
-      <UnderlyingIndexId>34639</UnderlyingIndexId>
+      <ObjectId>16407</ObjectId>
+      <StateNumber>746</StateNumber>
+      <UnderlyingIndexId>16406</UnderlyingIndexId>
     </key>
   </database-model>
 </dataSource>
