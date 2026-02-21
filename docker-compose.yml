@@ -25,6 +25,11 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
       SPRING_DATASOURCE_USERNAME: admin
       SPRING_DATASOURCE_PASSWORD: admin
-
+  ui:
+    image: geradinplay/university-frontend:1.1
+    depends_on:
+      - app
+    ports:
+      - "3000:80"
 volumes:
   postgres_data:
