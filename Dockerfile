@@ -1,9 +1,9 @@
 # 1 BUILD STAGE (Java 21)
-FROM gradle:8.5-jdk21 AS build
+FROM gradle:8.8-jdk21 AS build
 WORKDIR /app
 
 # Copy entire project
-COPY . .
+COPY . /app
 
 # Build project (skip tests inside Docker)
 RUN ./gradlew build --no-daemon -x test

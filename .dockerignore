@@ -1,0 +1,10 @@
+.history/
+.git/
+logs/
+*.log
+*.gz
+*.iml
+.idea/
+*.swp
+*.tmp
+
