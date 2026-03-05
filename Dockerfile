@@ -5,6 +5,9 @@ WORKDIR /app
 # Copy entire project
 COPY . /app
 
+# Make gradlew executable
+RUN chmod +x gradlew
+
 # Build project (skip tests inside Docker)
 RUN ./gradlew build --no-daemon -x test
 
